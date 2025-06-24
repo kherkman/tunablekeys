@@ -2771,29 +2771,29 @@
 
                 drumControlCell.appendChild(drumLabel);
 
-                const loadSampleBtn = document.createElement('button');
-                loadSampleBtn.textContent = 'Load .wav';
-                loadSampleBtn.classList.add('control-button');
-                loadSampleBtn.style.fontSize = '0.65em';
-                loadSampleBtn.style.padding = '2px 4px';
-                loadSampleBtn.dataset.drumIndex = r_drum;
+             //   const loadSampleBtn = document.createElement('button');
+             //   loadSampleBtn.textContent = 'Load .wav';
+             //   loadSampleBtn.classList.add('control-button');
+             //   loadSampleBtn.style.fontSize = '0.65em';
+             //   loadSampleBtn.style.padding = '2px 4px';
+             //   loadSampleBtn.dataset.drumIndex = r_drum; 
 
-                const fileInput = document.createElement('input');
-                fileInput.type = 'file';
-                fileInput.accept = '.wav,audio/wav';
-                fileInput.style.display = 'none';
-                fileInput.dataset.drumIndex = r_drum;
+             //   const fileInput = document.createElement('input');
+             //   fileInput.type = 'file';
+             //   fileInput.accept = '.wav,audio/wav';
+             //   fileInput.style.display = 'none';
+             //   fileInput.dataset.drumIndex = r_drum;
 
-                loadSampleBtn.addEventListener('click', () => {
-                    fileInput.click();
-                });
+             //   loadSampleBtn.addEventListener('click', () => {
+             //       fileInput.click();
+             //   });
 
-                fileInput.addEventListener('change', (event) => {
-                    loadCustomDrumSample(event, r_drum);
-                });
+             //   fileInput.addEventListener('change', (event) => {
+             //       loadCustomDrumSample(event, r_drum);
+             //   });
 
-                drumControlCell.appendChild(loadSampleBtn);
-                drumControlCell.appendChild(fileInput);
+             //   drumControlCell.appendChild(loadSampleBtn);
+             //   drumControlCell.appendChild(fileInput);
                 
                 rowWrapperDiv.appendChild(drumControlCell);
         
