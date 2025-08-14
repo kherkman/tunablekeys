@@ -10,6 +10,9 @@
 <body class="skin-dark-space">
 
     <div class="piano-container">
+        <!-- ADDED: Fullscreen close button, hidden by default -->
+        <button id="close-fullscreen-btn" class="control-button" style="display: none;">&times;</button>
+
         <div class="main-instrument-area">
             <div class="root-selector">
                 <!-- Root note buttons will be generated here -->
@@ -17,129 +20,145 @@
             <div class="keys-area">
                 <div class="piano-title">Microtonal Keyboard & Sequencer</div>
 
-                <details class="collapsible-section" style="margin-top: 0;">
-                    <summary class="collapsible-section-summary" style="font-size: 1.1em;">Custom Root Note Tuning</summary>
+                <!-- ADDED: This section is now collapsible -->
+                <details class="collapsible-section" open>
+                    <summary class="collapsible-section-summary">Custom Root Note Tuning</summary>
                     <div id="root-tuning-controls" style="display: flex; flex-wrap: wrap; gap: 10px; padding: 10px; justify-content: center; background-color: var(--bg-control-row); border-radius: 6px;">
-                        <!-- Inputs will be generated here by JS -->
+                        <!-- Inputs and buttons will be generated here by JS -->
                     </div>
                 </details>
 
-                <div class="instrument-config-row">
-                     <div class="control-group">
-                        <label for="num-piano-keys-input">Number of Slots:</label>
-                        <input type="number" id="num-piano-keys-input" value="13" min="1" max="61">
-                        <button id="apply-piano-keys-btn" class="control-button" style="font-size:0.8em; padding: 5px 8px;">Apply Slots</button>
+                <!-- ADDED: This entire section is now collapsible -->
+                <details class="collapsible-section" open>
+                    <summary class="collapsible-section-summary" style="font-size: 1.1em;">Instrument Setup</summary>
+                    <div class="instrument-config-row">
+                         <div class="control-group">
+                            <label for="num-piano-keys-input">Number of Slots:</label>
+                            <input type="number" id="num-piano-keys-input" value="13" min="1" max="61">
+                            <button id="apply-piano-keys-btn" class="control-button" style="font-size:0.8em; padding: 5px 8px;">Apply Slots</button>
+                        </div>
+                        <div class="control-group">
+                            <label for="max-keys-per-row-input">Max Keys/Row:</label>
+                            <input type="number" id="max-keys-per-row-input" value="13" min="1" max="25">
+                            <button id="apply-max-keys-row-btn" class="control-button" style="font-size:0.8em; padding: 5px 8px;">Apply Layout</button>
+                        </div>
+                        <div class="control-group">
+                            <label for="edo-input">EDO:</label>
+                            <input type="number" id="edo-input" value="12" min="1" max="100">
+                            <button id="apply-edo-btn" class="control-button" style="font-size:0.8em; padding: 5px 8px;">Apply EDO</button>
+                        </div>
+                         <div class="control-group">
+                            <button id="toggle-key-edit-btn" class="control-button" style="font-size:0.8em; padding: 5px 8px;">Key Edit: Off</button>
+                            <button id="toggle-row-stagger-btn" class="control-button" style="font-size:0.8em; padding: 5px 8px;">Stagger: Off</button>
+                            <!-- MODIFIED: "Root: Static/Dynamic" button has been moved to the Custom Root Note Tuning section -->
+                            <button id="toggle-frequency-display-btn" class="control-button" style="font-size:0.8em; padding: 5px 8px;">Display Freq: Off</button>
+                        </div>
                     </div>
-                    <div class="control-group">
-                        <label for="max-keys-per-row-input">Max Keys/Row:</label>
-                        <input type="number" id="max-keys-per-row-input" value="13" min="1" max="25">
-                        <button id="apply-max-keys-row-btn" class="control-button" style="font-size:0.8em; padding: 5px 8px;">Apply Layout</button>
-                    </div>
-                    <div class="control-group">
-                        <label for="edo-input">EDO:</label>
-                        <input type="number" id="edo-input" value="12" min="1" max="100">
-                        <button id="apply-edo-btn" class="control-button" style="font-size:0.8em; padding: 5px 8px;">Apply EDO</button>
-                    </div>
-                     <div class="control-group">
-                        <button id="toggle-key-edit-btn" class="control-button active" style="font-size:0.8em; padding: 5px 8px;">Key Edit: On</button>
-                        <button id="toggle-row-stagger-btn" class="control-button" style="font-size:0.8em; padding: 5px 8px;">Stagger: Off</button>
-                        <button id="toggle-dynamic-root-btn" class="control-button" style="font-size:0.8em; padding: 5px 8px;">Root: Static</button>
-                    </div>
-                </div>
+                </details>
 
-                <div class="global-controls-row">
-                     <div class="control-group">
-                        <label for="skin-select">Skin:</label>
-                        <select id="skin-select">
-                            <option value="skin-dark-space">Dark Space</option>
-                            <option value="skin-vintage-cream">Vintage Cream</option>
-                            <option value="skin-neon-wave">Neon Wave</option>
-                            <option value="skin-minimalist-light">Minimalist Light</option>
-                            <option value="skin-forest-grove">Forest Grove</option>
-                            <option value="skin-oceanic-deep">Oceanic Deep</option>
-                        </select>
+                <!-- ADDED: This entire section is now collapsible -->
+                <details class="collapsible-section" open>
+                    <summary class="collapsible-section-summary" style="font-size: 1.1em;">Global & Sound Controls</summary>
+                    <div class="global-controls-row">
+                         <div class="control-group">
+                            <label for="skin-select">Skin:</label>
+                            <select id="skin-select">
+                                <option value="skin-dark-space">Dark Space</option>
+                                <option value="skin-vintage-cream">Vintage Cream</option>
+                                <option value="skin-neon-wave">Neon Wave</option>
+                                <option value="skin-minimalist-light">Minimalist Light</option>
+                                <option value="skin-forest-grove">Forest Grove</option>
+                                <option value="skin-oceanic-deep">Oceanic Deep</option>
+                            </select>
+                        </div>
+                         <div class="control-group">
+                            <label for="key-shape-select">Key Shape:</label>
+                            <select id="key-shape-select">
+                                <option value="shape-rectangle">Rectangle</option>
+                                <option value="shape-square">Square</option>
+                                <option value="shape-circle">Circle</option>
+                                <option value="shape-hexagon">Hexagon</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="keys-volume-slider">Keys Vol:</label>
+                            <input type="range" id="keys-volume-slider" min="0" max="1" value="0.7" step="0.01">
+                        </div>
+                         <div class="control-group">
+                            <label for="sound-type-keys-select">Keys Sound:</label>
+                            <select id="sound-type-keys-select">
+                                <!-- Options will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="sequencer-volume-slider">Seq Vol:</label>
+                            <input type="range" id="sequencer-volume-slider" min="0" max="1" value="0.7" step="0.01">
+                        </div>
+                         <div class="control-group">
+                            <label for="sound-type-seq-select">Seq Sound (Melodic):</label>
+                             <select id="sound-type-seq-select">
+                                <!-- Options will be populated by JavaScript -->
+                            </select>
+                        </div>
+                         <div class="control-group">
+                            <button id="export-sound-definitions-btn" class="control-button" style="font-size:0.8em; padding: 5px 8px;">Export Sound Code</button>
+                            <input type="file" id="import-sound-definitions-input" accept=".js,.txt" style="display: none;">
+                            <button id="import-sound-definitions-btn" class="control-button" style="font-size:0.8em; padding: 5px 8px;">Import Sound Code</button>
+                        </div>
+                        <div class="control-group">
+                            <label for="midi-in-select">MIDI In:</label>
+                            <select id="midi-in-select"><option value="">(No devices)</option></select>
+                            <button id="midi-in-toggle-btn" class="control-button" style="font-size:0.8em; padding: 5px 8px;">Off</button>
+                        </div>
+                        <div class="control-group">
+                            <label for="midi-out-select">MIDI Out:</label>
+                            <select id="midi-out-select"><option value="">(No devices)</option></select>
+                            <button id="midi-out-toggle-btn" class="control-button" style="font-size:0.8em; padding: 5px 8px;">Off</button>
+                        </div>
+                         <div class="control-group">
+                            <label for="midi-mod-wheel-select">Mod Wheel:</label>
+                            <select id="midi-mod-wheel-select">
+                                <option value="none">None</option>
+                                <option value="keys_vol">Keys Volume</option>
+                                <option value="seq_vol">Sequencer Volume</option>
+                                <option value="tempo">Tempo</option>
+                                <option value="pitch">Global Pitch</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <button id="mute-all-btn" class="control-button" style="background-color: #c0392b; color: white;">Mute All</button>
+                             <!-- ADDED: Fullscreen Button -->
+                            <button id="toggle-fullscreen-btn" class="control-button">Full Screen Keys</button>
+                        </div>
                     </div>
-                     <div class="control-group">
-                        <label for="key-shape-select">Key Shape:</label>
-                        <select id="key-shape-select">
-                            <option value="shape-rectangle">Rectangle</option>
-                            <option value="shape-square">Square</option>
-                            <option value="shape-circle">Circle</option>
-                            <option value="shape-hexagon">Hexagon</option>
-                        </select>
-                    </div>
-                    <div class="control-group">
-                        <label for="keys-volume-slider">Keys Vol:</label>
-                        <input type="range" id="keys-volume-slider" min="0" max="1" value="0.7" step="0.01">
-                    </div>
-                     <div class="control-group">
-                        <label for="sound-type-keys-select">Keys Sound:</label>
-                        <select id="sound-type-keys-select">
-                            <!-- Options will be populated by JavaScript -->
-                        </select>
-                    </div>
-                    <div class="control-group">
-                        <label for="sequencer-volume-slider">Seq Vol:</label>
-                        <input type="range" id="sequencer-volume-slider" min="0" max="1" value="0.7" step="0.01">
-                    </div>
-                     <div class="control-group">
-                        <label for="sound-type-seq-select">Seq Sound (Melodic):</label>
-                         <select id="sound-type-seq-select">
-                            <!-- Options will be populated by JavaScript -->
-                        </select>
-                    </div>
-                     <div class="control-group">
-                        <button id="export-sound-definitions-btn" class="control-button" style="font-size:0.8em; padding: 5px 8px;">Export Sound Code</button>
-                        <input type="file" id="import-sound-definitions-input" accept=".js,.txt" style="display: none;">
-                        <button id="import-sound-definitions-btn" class="control-button" style="font-size:0.8em; padding: 5px 8px;">Import Sound Code</button>
-                    </div>
-                    <div class="control-group">
-                        <label for="midi-in-select">MIDI In:</label>
-                        <select id="midi-in-select"><option value="">(No devices)</option></select>
-                        <button id="midi-in-toggle-btn" class="control-button" style="font-size:0.8em; padding: 5px 8px;">Off</button>
-                    </div>
-                    <div class="control-group">
-                        <label for="midi-out-select">MIDI Out:</label>
-                        <select id="midi-out-select"><option value="">(No devices)</option></select>
-                        <button id="midi-out-toggle-btn" class="control-button" style="font-size:0.8em; padding: 5px 8px;">Off</button>
-                    </div>
-                     <div class="control-group">
-                        <label for="midi-mod-wheel-select">Mod Wheel:</label>
-                        <select id="midi-mod-wheel-select">
-                            <option value="none">None</option>
-                            <option value="keys_vol">Keys Volume</option>
-                            <option value="seq_vol">Sequencer Volume</option>
-                            <option value="tempo">Tempo</option>
-                            <option value="pitch">Global Pitch</option>
-                        </select>
-                    </div>
-                    <div class="control-group">
-                        <button id="mute-all-btn" class="control-button" style="background-color: #c0392b; color: white;">Mute All</button>
-                    </div>
-                </div>
+                </details>
 
-                <div class="controls-waveform-container">
-                    <div class="top-controls-row">
-                        <div class="octave-controls">
-                            <button id="octave-down-btn" class="control-button">&ndash; Oct</button>
-                            <span id="octave-display">Oct: 0</span>
-                            <button id="octave-up-btn" class="control-button">+ Oct</button>
+                <!-- ADDED: This entire section is now collapsible -->
+                <details class="collapsible-section" open>
+                    <summary class="collapsible-section-summary" style="font-size: 1.1em;">Keyboard Display & Pitch</summary>
+                    <div class="controls-waveform-container">
+                        <div class="top-controls-row">
+                            <div class="octave-controls">
+                                <button id="octave-down-btn" class="control-button">&ndash; Oct</button>
+                                <span id="octave-display">Oct: 0</span>
+                                <button id="octave-up-btn" class="control-button">+ Oct</button>
+                            </div>
+                             <div class="pitch-controls">
+                                <label for="pitch-shift-slider">Pitch:</label>
+                                <input type="range" id="pitch-shift-slider" min="-2" max="2" value="0" step="0.01">
+                                <span id="pitch-shift-display">0.00 st</span>
+                            </div>
+                            <div class="zoom-controls">
+                                <label for="zoom-slider">Zoom:</label>
+                                <input type="range" id="zoom-slider" min="40" max="120" value="65" step="5">
+                            </div>
                         </div>
-                         <div class="pitch-controls">
-                            <label for="pitch-shift-slider">Pitch:</label>
-                            <input type="range" id="pitch-shift-slider" min="-2" max="2" value="0" step="0.01">
-                            <span id="pitch-shift-display">0.00 st</span>
-                        </div>
-                        <div class="zoom-controls">
-                            <label for="zoom-slider">Zoom:</label>
-                            <input type="range" id="zoom-slider" min="40" max="120" value="65" step="5">
+                        <canvas id="waveform-canvas"></canvas>
+                        <div id="interval-display-line-container" style="display: none;">
+                            <div id="interval-display-line"></div>
                         </div>
                     </div>
-                    <canvas id="waveform-canvas"></canvas>
-                    <div id="interval-display-line-container" style="display: none;">
-                        <div id="interval-display-line"></div>
-                    </div>
-                </div>
+                </details>
                 <div class="keys-scroller">
                     <div class="piano-keys-container" id="piano-keys-container">
                         <!-- Piano key rows will be generated here -->
@@ -199,6 +218,15 @@
 
     <!-- Load the sound definition script BEFORE the main script -->
     <script src="sound-definitions.js"></script>
+    
+    <!-- Load the NEW sequencer/drum script BEFORE the main script -->
+    <script src="sequencer-drums.js"></script>
+    
+    <!-- Load the NEW chord/arpeggio script BEFORE the main script -->
+    <script src="chords-arpeggio.js"></script>
+
+    <!-- Load the NEW audio/midi script BEFORE the main script -->
+    <script src="audio-midi.js"></script>
 
     <script>
         const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
@@ -227,11 +255,8 @@
         ]; 
         let keysData = []; 
 
-        let audioContext;
-        let keysMasterGain, sequencerMasterGain; 
         let currentRootNoteName = "C";
         let currentRootFrequency = BASE_FREQUENCIES_C4_OCTAVE["C"];
-        const activeOscillators = {}; 
         let NUM_PIANO_KEYS = 13; 
         let currentMaxKeysPerRow = 13; 
 
@@ -253,45 +278,34 @@
         let globalPitchShiftSemitones = 0;
         let pitchShiftSlider, pitchShiftDisplay;
 
-        let analyserNode, waveformCanvas, waveformCtx, waveformDataArray, waveformAnimationId;
         let intervalDisplayLineContainer;
 
-        let NUM_CHORDS = 4;
-        let chordDefinitions = {};
-        
-        let isArpeggioActive = false;
-        let activeChordSounds = []; 
-        let highlightedChordKeys = []; 
-
-        let arpLoopIntervalId = null;
-        let currentArpChordType = null;
-        let currentArpNoteIndex = 0;
-        let currentArpSoundId = null;
-        let currentArpPlayingKeyElement = null;
-
+        // Sequencer and Drum variables remain here to be globally accessible
         const NUM_DRUM_ROWS = 3;
         const DRUM_ROW_NAMES = ["Kick", "Snare", "Hi-Hat"]; 
         const DRUM_WAV_FILES = ["kick.wav", "snare.wav", "hi-hat.wav"];
         const DRUM_FALLBACK_SYNTHS = ["kick_drum", "synth_snare", "hi_hat_noise"]; 
         const drumSamples = { "Kick": null, "Snare": null, "Hi-Hat": null };
         const DRUM_SAMPLES_PATH = ""; 
-        
-        // Piano sample variables are now declared in sound-definitions.js
-        // but we need to manage the audio buffers here.
-        const PIANO_WAV_FILES = ["A2sound.wav", "A2sound2.wav", "A2sound3.wav", "A2sound4.wav"];
-        const PIANO_SAMPLES_PATH = "";
-
         let NUM_SEQ_MELODIC_ROWS = 4; 
         let NUM_SEQ_STEPS = 16; 
         let sequencerData = Array(NUM_DRUM_ROWS + NUM_SEQ_MELODIC_ROWS).fill(null).map(() => Array(NUM_SEQ_STEPS).fill(false));
         let SEQ_ROW_KEY_INDICES = Array(NUM_SEQ_MELODIC_ROWS).fill(0).map((_, i) => i % (NUM_PIANO_KEYS || 1)); 
-        
         let currentSeqTempoBPM = 120;
         let isSequencerPlaying = false;
         let currentSeqStep = 0;
         let seqIntervalId = null;
         let lastTapTime = 0;
         let tapTempoCount = 0;
+        let seqPlayStopBtn, seqTempoSlider, seqTempoDisplay, seqTempoInput, tapTempoBtn;
+        let numSeqStepsInput, applySeqStepsBtn;
+        let numSeqRowsInput, applySeqRowsBtn; 
+        let sequencerGridDiv;
+        
+        // Piano sample variables are now declared in sound-definitions.js
+        // but we need to manage the audio buffers here.
+        const PIANO_WAV_FILES = ["A2sound.wav", "A2sound2.wav", "A2sound3.wav", "A2sound4.wav"];
+        const PIANO_SAMPLES_PATH = "";
 
         let currentSoundTypeKeys = 'piano_wav';
         let currentSoundTypeSeq = 'pluck_saw'; 
@@ -299,33 +313,19 @@
         let numPianoKeysInput, applyPianoKeysBtn;
         let maxKeysPerRowInput, applyMaxKeysRowBtn; 
         
-        let numChordsInput, applyNumChordsBtn; 
-        let chordButtonsRowDiv; 
-        let arpToggleBtn;
-
-        let seqPlayStopBtn, seqTempoSlider, seqTempoDisplay, seqTempoInput, tapTempoBtn;
-        let numSeqStepsInput, applySeqStepsBtn;
-        let numSeqRowsInput, applySeqRowsBtn; 
-        let sequencerGridDiv;
         let keysVolumeSlider, sequencerVolumeSlider;
         let soundTypeKeysSelect, soundTypeSeqSelect;
         let exportSoundDefsBtn, importSoundDefsInput, importSoundDefsBtn;
         
-        let midiAccess = null;
-        let midiInSelect, midiOutSelect, midiInToggleButton, midiOutToggleButton, modWheelSelect;
-        let isMidiInActive = false, isMidiOutActive = false;
-        let selectedMidiInput = null, selectedMidiOutput = null;
-        let modWheelTarget = 'none';
-        const PITCH_BEND_RANGE_SEMITONES = 2;
-
         let skinSelect, keyShapeSelect, edoInput, applyTuningBtn;
         let currentSkin = 'skin-dark-space';
         let currentKeyShape = 'shape-rectangle';
         let draggedKeyIndex = null;
         
-        let isKeyEditMode = true;
+        let isKeyEditMode = false;
         let areRowsStaggered = false;
         let isEdoModeActive = false;
+        let isFrequencyDisplayed = false;
 
         let soundDefinitionFunctionBody = ''; // Will be populated by the function from the external file
         let currentSoundGenerator;
@@ -393,7 +393,9 @@
             let d = parseFloat(d_str);
             if (isNaN(n) || isNaN(d) || d === 0) { n = 1; d = 1; }
 
-            const implicitOctaveShift = Math.floor(keyIndex / 12);
+            // MODIFIED: Do not apply implicit octave shifts when in EDO mode,
+            // as the interval is absolute from the root.
+            const implicitOctaveShift = isEdoModeActive ? 0 : Math.floor(keyIndex / 12);
             const totalOctaveShift = implicitOctaveShift + currentOctaveOffset;
 
             if (totalOctaveShift > 0) { n *= Math.pow(2, totalOctaveShift); }
@@ -419,79 +421,7 @@
             return (final_d === 1) ? `${final_n}` : `${final_n}/${final_d}`;
         }
 
-        async function loadDrumSamples() {
-            if (!audioContext) return;
-            for (let i = 0; i < NUM_DRUM_ROWS; i++) {
-                const drumName = DRUM_ROW_NAMES[i];
-                const wavFile = DRUM_WAV_FILES[i];
-                try {
-                    const response = await fetch(DRUM_SAMPLES_PATH + wavFile);
-                    if (!response.ok) {
-                        console.warn(`Could not fetch ${wavFile}. Status: ${response.status}. Using synth fallback for ${drumName}.`);
-                        drumSamples[drumName] = null;
-                        continue;
-                    }
-                    const arrayBuffer = await response.arrayBuffer();
-                    const buffer = await new Promise((resolve, reject) => {
-                        audioContext.decodeAudioData(arrayBuffer, resolve, reject);
-                    });
-                    drumSamples[drumName] = buffer;
-                    console.log(`${wavFile} loaded successfully for ${drumName}.`);
-                } catch (error) {
-                    console.error(`Error loading or decoding ${wavFile} for ${drumName}:`, error, `. Using synth fallback.`);
-                    drumSamples[drumName] = null;
-                }
-            }
-        }
-        
-        async function loadPianoSamples() {
-            if (!audioContext) return;
-            // The global 'pianoSamples' array from sound-definitions.js is populated here.
-            pianoSamples = []; 
-            for (const pianoFile of PIANO_WAV_FILES) {
-                try {
-                    const response = await fetch(PIANO_SAMPLES_PATH + pianoFile);
-                    if (!response.ok) {
-                        console.warn(`Could not fetch piano sample: ${pianoFile}. Status: ${response.status}.`);
-                        continue;
-                    }
-                    const arrayBuffer = await response.arrayBuffer();
-                    const buffer = await new Promise((resolve, reject) => {
-                        audioContext.decodeAudioData(arrayBuffer, resolve, reject);
-                    });
-                    pianoSamples.push(buffer);
-                    console.log(`Piano sample ${pianoFile} loaded successfully.`);
-                } catch (error) {
-                    console.error(`Error loading or decoding piano sample ${pianoFile}:`, error);
-                }
-            }
-            if (pianoSamples.length === 0) {
-                console.error("No piano samples could be loaded. The 'Piano Wav' sound will not work.");
-            }
-        }
-
-        async function initAudioContext() {
-            if (!audioContext) {
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                keysMasterGain = audioContext.createGain();
-                sequencerMasterGain = audioContext.createGain();
-                analyserNode = audioContext.createAnalyser();
-                analyserNode.fftSize = 2048;
-                waveformDataArray = new Uint8Array(analyserNode.frequencyBinCount);
-                keysMasterGain.connect(analyserNode);
-                sequencerMasterGain.connect(analyserNode);
-                analyserNode.connect(audioContext.destination); 
-                waveformCanvas = document.getElementById('waveform-canvas');
-                if (waveformCanvas) waveformCtx = waveformCanvas.getContext('2d');
-                intervalDisplayLineContainer = document.getElementById('interval-display-line-container');
-
-                await loadDrumSamples(); 
-                await loadPianoSamples();
-            }
-            if (audioContext.state === 'suspended') {
-                audioContext.resume();
-            }
-        }
+        // loadDrumSamples function is now in sequencer-drums.js
 
         function parseRatio(ratioStr) {
             if (typeof ratioStr !== 'string') return 1;
@@ -511,7 +441,10 @@
             
             const baseIntervalStringForKey = keysData[keyIndex].interval || DEFAULT_INTERVAL_RATIOS[keyIndex % DEFAULT_INTERVAL_RATIOS.length];
             const intervalRatio = parseRatio(baseIntervalStringForKey);
-            const implicitOctaveShift = Math.floor(keyIndex / 12); 
+            
+            // MODIFIED: Do not apply implicit octave shifts when in EDO mode,
+            // as the interval is absolute from the root.
+            const implicitOctaveShift = isEdoModeActive ? 0 : Math.floor(keyIndex / 12); 
             const baseFrequencyForKey = currentRootFrequency * intervalRatio;
             
             const octaveShiftedFreq = baseFrequencyForKey * Math.pow(2, currentOctaveOffset + octaveModifier + implicitOctaveShift);
@@ -532,6 +465,10 @@
             document.querySelectorAll('.interval-input').forEach(input => {
                 const newIntervalInputWidth = Math.max(30, Math.min(numKeyWidth - 10, 55));
                 input.style.width = `${newIntervalInputWidth}px`;
+            });
+            document.querySelectorAll('.midi-note-input').forEach(input => {
+                const newMidiInputWidth = Math.max(30, Math.min(numKeyWidth - 20, 45));
+                input.style.width = `${newMidiInputWidth}px`;
             });
         }
         
@@ -556,12 +493,15 @@
             keysData = [];
             for (let i = 0; i < NUM_PIANO_KEYS; i++) {
                 if (i < oldKeysData.length) {
-                    keysData.push(oldKeysData[i]); // Copy old data (key object or null)
+                    if (oldKeysData[i] && typeof oldKeysData[i].midiNote === 'undefined') {
+                        oldKeysData[i].midiNote = 60 + i;
+                    }
+                    keysData.push(oldKeysData[i]);
                 } else {
-                     // This is a new slot because we're expanding
                     keysData.push({
                         id: generateKeyId(),
-                        interval: DEFAULT_INTERVAL_RATIOS[i % DEFAULT_INTERVAL_RATIOS.length]
+                        interval: DEFAULT_INTERVAL_RATIOS[i % DEFAULT_INTERVAL_RATIOS.length],
+                        midiNote: 60 + i 
                     });
                 }
             }
@@ -675,6 +615,27 @@
                 keyWrapper.addEventListener('drop', handleDrop);
                 keyWrapper.addEventListener('dragend', handleDragEnd);
 
+                const midiInput = document.createElement('input');
+                midiInput.type = 'number';
+                midiInput.min = 0;
+                midiInput.max = 127;
+                midiInput.title = 'MIDI Note';
+                midiInput.classList.add('midi-note-input');
+                midiInput.dataset.keyIndex = i;
+                midiInput.addEventListener('change', (event) => {
+                    const keyIndex = parseInt(event.target.dataset.keyIndex, 10);
+                    const newMidiNote = parseInt(event.target.value, 10);
+                    if (!isNaN(newMidiNote) && newMidiNote >= 0 && newMidiNote <= 127) {
+                        if (keysData[keyIndex]) {
+                            keysData[keyIndex].midiNote = newMidiNote;
+                        }
+                    } else {
+                        alert("MIDI note must be between 0 and 127.");
+                        event.target.value = keysData[keyIndex].midiNote; // Revert
+                    }
+                });
+
+
                 const intervalInput = document.createElement('input');
                 intervalInput.type = 'text';
                 intervalInput.classList.add('interval-input');
@@ -698,7 +659,7 @@
                         alert("Invalid numbers in ratio."); updateKeyDisplays(); return; 
                     }
                     const effectiveNumericRatio = effN / effD;
-                    const implicitOctaveShift = Math.floor(keyIndex / 12);
+                    const implicitOctaveShift = isEdoModeActive ? 0 : Math.floor(keyIndex / 12);
                     const totalAppliedOctaveShift = implicitOctaveShift + currentOctaveOffset;
 
                     let baseNumericRatio = effectiveNumericRatio;
@@ -720,8 +681,12 @@
                 noteNameSpan.classList.add('note-name');
                 const intervalDisplaySpan = document.createElement('span');
                 intervalDisplaySpan.classList.add('interval-display');
+                const frequencyDisplaySpan = document.createElement('span');
+                frequencyDisplaySpan.classList.add('frequency-display');
+
                 key.appendChild(noteNameSpan);
                 key.appendChild(intervalDisplaySpan);
+                key.appendChild(frequencyDisplaySpan);
                 
                 const playNoteHandler = async () => {
                     await initAudioContext(); 
@@ -748,7 +713,8 @@
                 deleteBtn.title = 'Delete Key';
                 deleteBtn.dataset.keyIndex = i;
                 deleteBtn.addEventListener('click', handleDeleteKey);
-
+                
+                keyWrapper.appendChild(midiInput);
                 keyWrapper.appendChild(intervalInput);
                 keyWrapper.appendChild(key);
                 keyWrapper.appendChild(deleteBtn);
@@ -756,12 +722,14 @@
             }
             updateKeyDisplays();
             if (zoomSlider) applyZoom(zoomSlider.value);
+            setKeyEditMode(isKeyEditMode); 
         }
 
         function handleAddKey(keyIndex) {
             keysData[keyIndex] = {
                 id: generateKeyId(),
-                interval: decimalToFractionString(Math.pow(2, keyIndex / 12)) // Default to 12-EDO for the position
+                interval: decimalToFractionString(Math.pow(2, keyIndex / 12)), // Default to 12-EDO for the position
+                midiNote: 60 + keyIndex
             };
             createPianoKeysAndRootSelector();
             updateKeyDisplays();
@@ -869,7 +837,11 @@
                 if (keyIndex >= keysData.length || !keysData[keyIndex]) return; 
 
                 const intervalInputEl = document.querySelector(`.interval-input[data-key-index="${keyIndex}"]`);
-                if (!intervalInputEl) return;
+                const midiInputEl = document.querySelector(`.midi-note-input[data-key-index="${keyIndex}"]`);
+                const freqDisplayEl = keyElement.querySelector('.frequency-display');
+                if (!intervalInputEl || !midiInputEl || !freqDisplayEl) return;
+
+                midiInputEl.value = keysData[keyIndex].midiNote || (60 + keyIndex);
 
                 const baseIntervalStrForKey = keysData[keyIndex].interval || "1/1";
                 
@@ -888,6 +860,14 @@
                 const effectiveIntervalStr = getEffectiveIntervalString(keyIndex);
                 intervalInputEl.value = effectiveIntervalStr;
                 keyElement.querySelector('.interval-display').textContent = `(${effectiveIntervalStr})`;
+                
+                if (isFrequencyDisplayed) {
+                    const freqObject = getFrequencyForKey(keyIndex);
+                    freqDisplayEl.textContent = freqObject ? `${freqObject.finalFreq.toFixed(2)} Hz` : '';
+                    freqDisplayEl.style.display = 'block';
+                } else {
+                    freqDisplayEl.style.display = 'none';
+                }
             });
             
             document.querySelectorAll('.seq-row-key-select').forEach(select => {
@@ -895,7 +875,7 @@
                 const melodicRowIndex = parseInt(select.dataset.rowIndex); 
                 select.innerHTML = ''; 
                  for (let i = 0; i < NUM_PIANO_KEYS; i++) { 
-                    if (!keysData[i]) continue; // Don't add null keys to selector
+                    if (!keysData[i]) continue; 
                     const option = document.createElement('option'); option.value = i;
                     const effectiveIntervalForSeqDisp = getEffectiveIntervalString(i); 
                     option.textContent = `Key ${i+1} (${effectiveIntervalForSeqDisp})`; 
@@ -920,11 +900,11 @@
 
             const line = intervalDisplayLineContainer.querySelector('#interval-display-line');
             if (!line) return;
-            line.innerHTML = ''; // Clear previous markers
+            line.innerHTML = ''; 
 
             const keyDisplayData = [];
             for (let i = 0; i < NUM_PIANO_KEYS; i++) {
-                if (!keysData[i]) continue; // Skip null/empty keys
+                if (!keysData[i]) continue; 
                 const freqObject = getFrequencyForKey(i);
                 if (freqObject !== null && freqObject.baseFreq > 0) {
                     keyDisplayData.push({
@@ -976,855 +956,6 @@
                 fragment.appendChild(wrapper);
             });
             line.appendChild(fragment);
-        }
-        
-        function playSound(frequencyObject, soundId, source = 'key', noteOnDuration = null, forcedSoundType = null) {
-            if (!audioContext || frequencyObject === null) return;
-            const finalFrequency = frequencyObject.finalFreq;
-            const baseFrequency = frequencyObject.baseFreq;
-
-            if (activeOscillators[soundId]) stopSound(soundId, 0.01);
-
-            const now = audioContext.currentTime;
-            const masterGainNodeToUse = (source === 'sequencer' || source === 'sequencer_drum_synth') ? sequencerMasterGain : keysMasterGain;
-            const soundTypeToUse = forcedSoundType || 
-                                 ((source === 'sequencer') ? currentSoundTypeSeq : currentSoundTypeKeys);
-            
-            let soundElements;
-            try {
-                // The external script expects pianoSamples and pianoSampleIndex to be available globally.
-                soundElements = currentSoundGenerator(
-                    soundTypeToUse, finalFrequency, now, audioContext, masterGainNodeToUse, soundId, activeOscillators
-                );
-            } catch (e) {
-                console.error(`Error generating sound '${soundTypeToUse}':`, e);
-                const fallbackGain = audioContext.createGain();
-                const fallbackOsc = audioContext.createOscillator();
-                fallbackOsc.type = 'sine';
-                if (finalFrequency !== null) fallbackOsc.frequency.setValueAtTime(finalFrequency, now);
-                else fallbackOsc.frequency.setValueAtTime(440, now); 
-                fallbackOsc.connect(fallbackGain);
-                fallbackGain.gain.setValueAtTime(0, now);
-                fallbackGain.gain.linearRampToValueAtTime(0.3, now + 0.02);
-                fallbackOsc.start(now);
-                soundElements = { 
-                    mainOsc: fallbackOsc, mainGain: fallbackGain, 
-                    isSelfStopping: false, soundNaturalDuration: 0.1 
-                };
-                alert(`Error in sound definition for '${soundTypeToUse}'. Playing a default sine wave. Check console for details.`);
-            }
-
-            let { mainOsc, mainGain, filterNode, modulatorOsc, modulatorGain, noiseSource, lfo, lfoGain, isSelfStopping, soundNaturalDuration } = soundElements;
-
-            if (!mainGain) { 
-                console.error(`Sound '${soundTypeToUse}' definition did not create/return 'mainGain'. Cannot play sound.`);
-                return;
-            }
-            mainGain.connect(masterGainNodeToUse); 
-            
-            activeOscillators[soundId] = { 
-                oscillator: mainOsc, gainNode: mainGain, filterNode: filterNode, source: source, 
-                isSequencerNote: (noteOnDuration !== null), soundTypeUsed: soundTypeToUse, 
-                modulatorOsc: modulatorOsc, modulatorGain: modulatorGain, noiseSource: noiseSource,
-                lfo: lfo, lfoGain: lfoGain, baseFrequency: baseFrequency
-            };
-
-            if (isMidiOutActive && selectedMidiOutput && (source.startsWith('key') || source.startsWith('keyboard_key'))) {
-                const soundObject = activeOscillators[soundId];
-                if (soundObject && finalFrequency) {
-                    const keyIndexMatch = soundId.match(/\d+$/);
-                    if (keyIndexMatch) {
-                        const keyIndex = parseInt(keyIndexMatch[0], 10);
-                        const midiChannel = keyIndex % 16;
-                        
-                        const midiNoteValue = 69 + 12 * Math.log2(finalFrequency / 440.0);
-                        const closestMidiNote = Math.max(0, Math.min(127, Math.round(midiNoteValue)));
-                        const deviationSemitones = midiNoteValue - closestMidiNote;
-                        let pitchBendActual = 8192;
-                        if (Math.abs(deviationSemitones) > 0.001) {
-                            const pitchBendUnits = (deviationSemitones / PITCH_BEND_RANGE_SEMITONES) * 8191;
-                            pitchBendActual = Math.max(0, Math.min(16383, Math.round(8192 + pitchBendUnits)));
-                        }
-                        const pitchBendLSB = pitchBendActual & 0x7F;
-                        const pitchBendMSB = (pitchBendActual >> 7) & 0x7F;
-
-                        soundObject.midiNote = closestMidiNote;
-                        soundObject.midiChannel = midiChannel;
-
-                        selectedMidiOutput.send([0xE0 | midiChannel, pitchBendLSB, pitchBendMSB]);
-                        selectedMidiOutput.send([0x90 | midiChannel, closestMidiNote, 100]);
-                    }
-                }
-            }
-
-
-            const isSynthDrum = source === 'sequencer_drum_synth';
-
-            if (noteOnDuration !== null) { 
-                let stopTime = now + noteOnDuration;
-                if (isSelfStopping) {
-                    stopTime = now + Math.min(noteOnDuration, soundNaturalDuration);
-                    if (mainOsc) mainOsc.stop(stopTime + 0.01);
-                    if (modulatorOsc) modulatorOsc.stop(stopTime + 0.01);
-                    if (noiseSource) try {noiseSource.stop(stopTime + 0.01);} catch(e){}
-                    if (lfo) lfo.stop(stopTime + 0.01);
-                    if(soundTypeToUse === 'bell' || soundTypeToUse === 'organ' || soundTypeToUse === 'soft_pad' || soundTypeToUse === 'synth_snare') { 
-                        for (const key in activeOscillators) {
-                            if (key.startsWith(`${soundId}_aux`) || key.startsWith(`${soundId}_harm`) || key.startsWith(`${soundId}_noise`) || key.startsWith(`${soundId}_body`)) {
-                                if(activeOscillators[key] && activeOscillators[key].oscillator) activeOscillators[key].oscillator.stop(stopTime + 0.01);
-                            }
-                        }
-                    }
-
-                } else if (soundTypeToUse === 'pluck_saw' || soundTypeToUse === 'synth' || soundTypeToUse === 'soft_pad' || isSynthDrum) { 
-                    const releaseStartTime = now + noteOnDuration;
-                    mainGain.gain.cancelScheduledValues(releaseStartTime); 
-                    mainGain.gain.setValueAtTime(mainGain.gain.value, releaseStartTime); 
-                    let releaseDuration = 0.3;
-                    if (soundTypeToUse === 'pluck_saw' && !isSynthDrum) releaseDuration = 0.5; 
-                    else if (soundTypeToUse === 'soft_pad') releaseDuration = 0.8;
-                    else if (isSynthDrum && (soundTypeToUse === 'pluck_saw' || soundTypeToUse === 'kick_drum' || soundTypeToUse === 'hi_hat_noise' || soundTypeToUse === 'synth_snare')) {
-                        releaseDuration = Math.min(soundNaturalDuration || 0.15, noteOnDuration); 
-                        stopTime = now + releaseDuration; 
-                    }
-
-                    mainGain.gain.exponentialRampToValueAtTime(0.0001, releaseStartTime + releaseDuration); 
-                    if (mainOsc) mainOsc.stop(releaseStartTime + releaseDuration + 0.01);
-                    if (lfo) lfo.stop(releaseStartTime + releaseDuration + 0.01); 
-                     if(soundTypeToUse === 'soft_pad' || soundTypeToUse === 'synth_snare') { 
-                        for (const key in activeOscillators) {
-                            if (key.startsWith(`${soundId}_aux`) || key.startsWith(`${soundId}_noise`) || key.startsWith(`${soundId}_body`)) {
-                                if(activeOscillators[key] && activeOscillators[key].oscillator) activeOscillators[key].oscillator.stop(releaseStartTime + releaseDuration + 0.01); 
-                            }
-                        }
-                    }
-                    if(!isSynthDrum || !(soundTypeToUse === 'pluck_saw' || soundTypeToUse === 'kick_drum' || soundTypeToUse === 'hi_hat_noise' || soundTypeToUse === 'synth_snare')) {
-                       stopTime = releaseStartTime + releaseDuration; 
-                    }
-                } else { 
-                    let sustainValue = 0.3; 
-                    if (soundTypeToUse === 'warm_saw') sustainValue = 0.4;
-                    else if (soundTypeToUse === 'lead_square') sustainValue = 0.3;
-                    else if (soundTypeToUse === 'organ') sustainValue = 0.2;
-                    
-                    const currentGain = mainGain.gain.value; 
-                    mainGain.gain.cancelScheduledValues(now + noteOnDuration - 0.05); 
-                    mainGain.gain.setValueAtTime(currentGain > 0.001 ? currentGain : sustainValue, now + noteOnDuration - 0.05);
-
-                    mainGain.gain.linearRampToValueAtTime(0.0001, stopTime);
-                    if (mainOsc) mainOsc.stop(stopTime + 0.01);
-                    if (lfo) lfo.stop(stopTime + 0.01); 
-                }
-                
-                setTimeout(() => {
-                    for (const key in activeOscillators) {
-                        if (key.startsWith(`${soundId}_`)) { 
-                             if (activeOscillators[key] && activeOscillators[key].oscillator === (activeOscillators[soundId] ? activeOscillators[soundId].oscillator : null) || key !== soundId) { 
-                                delete activeOscillators[key];
-                            }
-                        }
-                    }
-                    if (activeOscillators[soundId]) delete activeOscillators[soundId]; 
-                    checkWaveformDrawingState();
-                }, (stopTime - now + 0.05) * 1000); 
-
-            } else if (isSelfStopping) { 
-                 if (mainOsc) mainOsc.stop(now + soundNaturalDuration + 0.01);
-                 if (modulatorOsc) modulatorOsc.stop(now + soundNaturalDuration + 0.01);
-                 if (noiseSource) try {noiseSource.stop(now + soundNaturalDuration + 0.01);} catch(e){}
-                 if (lfo) lfo.stop(now + soundNaturalDuration + 0.01);
-                  if(soundTypeToUse === 'bell' || soundTypeToUse === 'organ' || soundTypeToUse === 'soft_pad' || soundTypeToUse === 'synth_snare') {
-                        for (const key in activeOscillators) {
-                            if (key.startsWith(`${soundId}_aux`) || key.startsWith(`${soundId}_harm`) || key.startsWith(`${soundId}_noise`) || key.startsWith(`${soundId}_body`)) {
-                                if(activeOscillators[key] && activeOscillators[key].oscillator) activeOscillators[key].oscillator.stop(now + soundNaturalDuration + 0.01);
-                            }
-                        }
-                    }
-                 setTimeout(() => {
-                    for (const key in activeOscillators) {
-                        if (key.startsWith(`${soundId}_`)) {
-                             if (activeOscillators[key] && activeOscillators[key].oscillator === (activeOscillators[soundId] ? activeOscillators[soundId].oscillator : null) || key !== soundId) {
-                                delete activeOscillators[key];
-                            }
-                        }
-                    }
-                    if (activeOscillators[soundId]) delete activeOscillators[soundId];
-                    checkWaveformDrawingState();
-                }, (soundNaturalDuration + 0.05) * 1000);
-            }
-            checkWaveformDrawingState();
-        }
-
-        function stopSound(soundId, releaseTime = 0.15) {
-            const soundObject = activeOscillators[soundId];
-            if (soundObject) {
-                if (isMidiOutActive && selectedMidiOutput && soundObject.midiNote !== undefined) {
-                    selectedMidiOutput.send([0x80 | soundObject.midiChannel, soundObject.midiNote, 0]); 
-                }
-
-                if (soundObject.bufferSourceNode) {
-                    try { soundObject.bufferSourceNode.stop(audioContext.currentTime + 0.01); } catch (e) { }
-                    delete activeOscillators[soundId];
-                    checkWaveformDrawingState();
-                    return;
-                }
-
-                const { oscillator, gainNode, filterNode, modulatorOsc, modulatorGain, noiseSource, lfo, lfoGain, isSequencerNote, soundTypeUsed } = soundObject;
-                const now = audioContext.currentTime;
-
-                for (const key in activeOscillators) {
-                    if (key.startsWith(`${soundId}_`) && key !== soundId) { 
-                        if (activeOscillators[key] && activeOscillators[key].oscillator) {
-                            try { activeOscillators[key].oscillator.stop(now + 0.02); } catch(e) {}
-                        }
-                        delete activeOscillators[key];
-                    }
-                }
-                
-                if (gainNode) {
-                    gainNode.gain.cancelScheduledValues(now);
-                    gainNode.gain.setValueAtTime(gainNode.gain.value, now);
-                }
-
-                let actualReleaseTime = releaseTime;
-                 if (isSequencerNote || 
-                     (soundTypeUsed === 'pluck_triangle' && !isSequencerNote) || 
-                     soundTypeUsed === 'kick_drum' || 
-                     soundTypeUsed === 'hi_hat_noise' || 
-                     soundTypeUsed === 'bell' || 
-                     soundTypeUsed === 'xylophone' ||
-                     soundTypeUsed === 'synth_snare' ||
-                     soundTypeUsed === 'piano_wav' 
-                    ) { 
-                    if (gainNode) gainNode.gain.linearRampToValueAtTime(0.0001, now + 0.01);
-                    actualReleaseTime = 0.01; 
-                } else if (soundTypeUsed === 'pluck_saw' || soundTypeUsed === 'synth' || soundTypeUsed === 'soft_pad') {
-                     if (soundTypeUsed === 'pluck_saw') actualReleaseTime = 0.5;
-                     else if (soundTypeUsed === 'synth') actualReleaseTime = 0.3;
-                     else if (soundTypeUsed === 'soft_pad') actualReleaseTime = 0.8; 
-                     if (gainNode) gainNode.gain.exponentialRampToValueAtTime(0.0001, now + actualReleaseTime);
-                } else { 
-                    if (gainNode) gainNode.gain.linearRampToValueAtTime(0.0001, now + actualReleaseTime);
-                }
-
-                if (oscillator) try { oscillator.stop(now + actualReleaseTime + 0.01); } catch(e){}
-                if (modulatorOsc) try { modulatorOsc.stop(now + actualReleaseTime + 0.01); } catch(e){}
-                if (noiseSource) try { noiseSource.stop(now + actualReleaseTime + 0.01); } catch(e){} 
-                if (lfo) try { lfo.stop(now + actualReleaseTime + 0.01); } catch(e){}
-                
-                delete activeOscillators[soundId];
-                checkWaveformDrawingState();
-            }
-        }
-        
-        function checkWaveformDrawingState() {
-            const anySoundPlaying = Object.keys(activeOscillators).length > 0;
-            if (anySoundPlaying && !waveformAnimationId) { drawWaveform(); } 
-            else if (!anySoundPlaying && waveformAnimationId) { cancelAnimationFrame(waveformAnimationId); waveformAnimationId = null;
-                setTimeout(() => { if (waveformCtx && Object.keys(activeOscillators).length === 0) { waveformCtx.clearRect(0, 0, waveformCanvas.width, waveformCanvas.height); }}, 200);
-            }
-        }
-
-        function drawWaveform() {
-            if (!analyserNode || !waveformCtx || !waveformDataArray) return;
-            waveformAnimationId = requestAnimationFrame(drawWaveform);
-            analyserNode.getByteTimeDomainData(waveformDataArray);
-            waveformCtx.fillStyle = '#22303f'; waveformCtx.fillRect(0, 0, waveformCanvas.width, waveformCanvas.height);
-            waveformCtx.lineWidth = 2; waveformCtx.strokeStyle = '#e67e22'; waveformCtx.beginPath();
-            const sliceWidth = waveformCanvas.width * 1.0 / waveformDataArray.length; let x = 0;
-            for (let i = 0; i < waveformDataArray.length; i++) { const v = waveformDataArray[i] / 128.0; const y = v * waveformCanvas.height / 2;
-                if (i === 0) waveformCtx.moveTo(x, y); else waveformCtx.lineTo(x, y); x += sliceWidth; }
-            waveformCtx.lineTo(waveformCanvas.width, waveformCanvas.height / 2); waveformCtx.stroke();
-        }
-
-        function clearChordKeyHighlights() {
-            highlightedChordKeys.forEach(el => el.classList.remove('chord-playing'));
-            highlightedChordKeys = [];
-        }
-
-        function stopCurrentArpNoteSoundAndHighlight() {
-            if (currentArpSoundId) stopSound(currentArpSoundId, 0.01);
-            if (currentArpPlayingKeyElement) currentArpPlayingKeyElement.classList.remove('chord-playing');
-            currentArpSoundId = null;
-            currentArpPlayingKeyElement = null;
-        }
-
-        function stopArpLoop() {
-            if (arpLoopIntervalId) clearInterval(arpLoopIntervalId);
-            arpLoopIntervalId = null;
-            stopCurrentArpNoteSoundAndHighlight();
-            currentArpChordType = null;
-        }
-        
-        function playNextArpNote() {
-            if (!isArpeggioActive || !currentArpChordType || !chordDefinitions[currentArpChordType]) {
-                stopArpLoop();
-                return;
-            }
-        
-            const chordDef = chordDefinitions[currentArpChordType];
-            const validNotes = chordDef.currentKeyIndices.filter(ki => {
-                if (ki === null) return false;
-                const keyIndex = (typeof ki === 'object') ? ki.keyIndex : ki;
-                return keysData[keyIndex] !== null; // Check that the key slot is not empty
-            });
-        
-            if (validNotes.length === 0) {
-                stopArpLoop();
-                return;
-            }
-        
-            currentArpNoteIndex = currentArpNoteIndex % validNotes.length;
-            const keyInfo = validNotes[currentArpNoteIndex];
-        
-            let keyIndex, octaveMod = 0;
-            if (typeof keyInfo === 'number') {
-                keyIndex = keyInfo;
-            } else { 
-                keyIndex = keyInfo.keyIndex;
-                octaveMod = keyInfo.octaveMod || 0;
-            }
-        
-            if (keyIndex === null || keyIndex === undefined || keyIndex < 0 || keyIndex >= NUM_PIANO_KEYS || !keysData[keyIndex]) {
-                currentArpNoteIndex++;
-                return;
-            }
-        
-            const freqObject = getFrequencyForKey(keyIndex, octaveMod);
-            const arpStepDurationMs = (60 / currentSeqTempoBPM) * 1000 / 4;
-        
-            if (freqObject !== null) {
-                stopCurrentArpNoteSoundAndHighlight(); 
-        
-                currentArpSoundId = `arp_${currentArpChordType}_note${currentArpNoteIndex}`;
-                playSound(freqObject, currentArpSoundId, 'key', (arpStepDurationMs / 1000) * 0.95);
-        
-                currentArpPlayingKeyElement = document.querySelector(`.piano-key[data-key-index="${keyIndex}"]`);
-                if (currentArpPlayingKeyElement) {
-                    currentArpPlayingKeyElement.classList.add('chord-playing');
-                }
-            }
-            currentArpNoteIndex++;
-        }
-
-        async function playChord(chordType) {
-            await initAudioContext();
-            const chordDef = chordDefinitions[chordType];
-            if (!chordDef) return;
-
-            clearChordKeyHighlights(); 
-            stopActiveChordSounds(); 
-
-            if (isArpeggioActive) {
-                stopArpLoop(); 
-                currentArpChordType = chordType;
-                currentArpNoteIndex = 0;
-                const arpStepDurationMs = (60 / currentSeqTempoBPM) * 1000 / 4;
-                playNextArpNote(); 
-                arpLoopIntervalId = setInterval(playNextArpNote, arpStepDurationMs);
-            } else {
-                stopArpLoop(); 
-                const soundIds = [];
-                for (let i = 0; i < chordDef.currentKeyIndices.length; i++) {
-                    const keyInfo = chordDef.currentKeyIndices[i];
-                    if (keyInfo === null) continue; 
-
-                    let keyIndex, octaveMod = 0;
-                    if (typeof keyInfo === 'number') {
-                        keyIndex = keyInfo;
-                    } else { 
-                        keyIndex = keyInfo.keyIndex;
-                        octaveMod = keyInfo.octaveMod || 0;
-                    }
-                    if (keyIndex === null || keyIndex === undefined || keyIndex < 0 || keyIndex >= NUM_PIANO_KEYS || !keysData[keyIndex]) continue;
-
-                    const freqObject = getFrequencyForKey(keyIndex, octaveMod);
-                    if (freqObject !== null) {
-                        const soundId = `chord_${chordType}_note${i}`;
-                        playSound(freqObject, soundId, 'key');
-                        activeChordSounds.push(soundId);
-                        
-                        const keyElement = document.querySelector(`.piano-key[data-key-index="${keyIndex}"]`);
-                        if (keyElement) {
-                            keyElement.classList.add('chord-playing');
-                            highlightedChordKeys.push(keyElement);
-                        }
-                    }
-                }
-            }
-        }
-
-        function stopActiveChordSounds() { 
-            activeChordSounds.forEach(id => stopSound(id)); 
-            activeChordSounds = []; 
-            clearChordKeyHighlights(); 
-        }
-
-        function createChordKeySelectors(chordType) {
-            const chordDef = chordDefinitions[chordType];
-            if (!chordDef) return;
-
-            const selectorsContainer = document.getElementById(`chord-selectors-${chordType}`);
-            if (!selectorsContainer) return;
-            selectorsContainer.innerHTML = '';
-
-            for (let noteIndex = 0; noteIndex < chordDef.numNotes; noteIndex++) {
-                const controlGroupDiv = document.createElement('div');
-                controlGroupDiv.classList.add('control-group');
-
-                const labelEl = document.createElement('label');
-                labelEl.textContent = `${chordDef.labels[noteIndex] || `Note ${noteIndex + 1}`}:`;
-                labelEl.htmlFor = `chord-${chordType}-key${noteIndex}-select`;
-                
-                const selectEl = document.createElement('select');
-                selectEl.id = `chord-${chordType}-key${noteIndex}-select`;
-                selectEl.dataset.chordType = chordType;
-                selectEl.dataset.noteIndex = noteIndex;
-
-                const noneOption = document.createElement('option');
-                noneOption.value = "-1"; 
-                noneOption.textContent = "None";
-                selectEl.appendChild(noneOption);
-
-                const hasValidKeys = keysData.some(k => k !== null);
-
-                if (!hasValidKeys) {
-                    selectEl.disabled = true;
-                } else {
-                    for (let i = 0; i < NUM_PIANO_KEYS; i++) {
-                        if (!keysData[i]) continue; // Skip null keys
-                        const option = document.createElement('option');
-                        option.value = i;
-                        const effectiveInterval = getEffectiveIntervalString(i);
-                        option.textContent = `Key ${i + 1} (${effectiveInterval})`;
-                        selectEl.appendChild(option);
-                    }
-                    selectEl.disabled = false;
-                }
-                
-                let currentKeyForNote;
-                const keyDef = chordDef.currentKeyIndices[noteIndex];
-
-                if (keyDef === null) { 
-                    currentKeyForNote = -1;
-                } else if (typeof keyDef === 'object') {
-                    currentKeyForNote = keyDef.keyIndex;
-                } else {
-                    currentKeyForNote = keyDef;
-                }
-                
-                if (!hasValidKeys) {
-                    selectEl.value = "-1"; 
-                } else if (currentKeyForNote === -1 || !keysData[currentKeyForNote]) {
-                    selectEl.value = "-1";
-                } else {
-                     selectEl.value = currentKeyForNote;
-                }
-
-                selectEl.addEventListener('change', (event) => {
-                    const selectedValue = parseInt(event.target.value);
-                    const cType = event.target.dataset.chordType;
-                    const nIndex = parseInt(event.target.dataset.noteIndex);
-
-                    if (selectedValue === -1) {
-                        chordDefinitions[cType].currentKeyIndices[nIndex] = null; 
-                    } else {
-                        let currentNoteDefinition = chordDefinitions[cType].currentKeyIndices[nIndex];
-                        if (typeof currentNoteDefinition === 'object' && currentNoteDefinition !== null) {
-                            currentNoteDefinition.keyIndex = selectedValue;
-                        } else { 
-                            chordDefinitions[cType].currentKeyIndices[nIndex] = selectedValue;
-                        }
-                    }
-                });
-                controlGroupDiv.appendChild(labelEl);
-                controlGroupDiv.appendChild(selectEl);
-                selectorsContainer.appendChild(controlGroupDiv);
-            }
-        }
-        
-        function buildChordGroupUI(chordId) {
-            const chordDef = chordDefinitions[chordId];
-            if (!chordDef) return;
-        
-            const groupDiv = document.createElement('div');
-            groupDiv.classList.add('chord-definition-group');
-            groupDiv.id = `chord-group-${chordId}`;
-        
-            const button = document.createElement('button');
-            button.classList.add('chord-button');
-            button.dataset.type = chordId;
-            button.textContent = chordDef.name;
-        
-            button.addEventListener('mousedown', () => { playChord(chordId); button.classList.add('playing'); });
-            button.addEventListener('mouseup', () => { 
-                if (isArpeggioActive && currentArpChordType === chordId) {
-                    stopArpLoop();
-                } else if (!isArpeggioActive) {
-                    stopActiveChordSounds();
-                }
-                button.classList.remove('playing');
-            });
-            button.addEventListener('mouseleave', () => { 
-                if (button.classList.contains('playing')) {
-                    if (isArpeggioActive && currentArpChordType === chordId) {
-                        // Don't stop the arp on mouseleave
-                    } else if (!isArpeggioActive) {
-                        stopActiveChordSounds();
-                        button.classList.remove('playing');
-                    }
-                }
-            });
-            button.addEventListener('touchstart', (e) => { e.preventDefault(); playChord(chordId); button.classList.add('playing'); });
-            button.addEventListener('touchend', (e) => { 
-                e.preventDefault(); 
-                if (isArpeggioActive && currentArpChordType === chordId) {
-                    stopArpLoop();
-                } else if (!isArpeggioActive) {
-                    stopActiveChordSounds();
-                }
-                button.classList.remove('playing');
-            });
-        
-            groupDiv.appendChild(button);
-
-            const nameInput = document.createElement('input');
-            nameInput.type = 'text';
-            nameInput.value = chordDef.name;
-            nameInput.dataset.chordType = chordId;
-            nameInput.style.width = '90%';
-            nameInput.style.textAlign = 'center';
-            nameInput.style.backgroundColor = '#566573';
-            nameInput.style.color = '#ecf0f1';
-            nameInput.style.border = '1px solid #4a6278';
-            nameInput.style.borderRadius = '4px';
-            nameInput.style.padding = '4px';
-            nameInput.style.fontSize = '0.7em';
-            nameInput.style.marginTop = '4px';
-            nameInput.placeholder = "Chord Name";
-
-            nameInput.addEventListener('input', (event) => {
-                const cType = event.target.dataset.chordType;
-                const newName = event.target.value;
-                chordDefinitions[cType].name = newName;
-                const chordButton = groupDiv.querySelector(`.chord-button[data-type="${cType}"]`);
-                if(chordButton) {
-                    chordButton.textContent = newName;
-                }
-            });
-            groupDiv.appendChild(nameInput);
-
-            const numNotesControlDiv = document.createElement('div');
-            numNotesControlDiv.classList.add('chord-num-notes-control');
-            
-            const numNotesLabel = document.createElement('label');
-            numNotesLabel.textContent = "Notes:";
-            numNotesLabel.htmlFor = `chord-${chordId}-num-notes-input`;
-            numNotesControlDiv.appendChild(numNotesLabel);
-
-            const numNotesInput = document.createElement('input');
-            numNotesInput.type = 'number';
-            numNotesInput.id = `chord-${chordId}-num-notes-input`;
-            numNotesInput.value = chordDef.numNotes;
-            numNotesInput.min = 1;
-            numNotesInput.max = 8; 
-            numNotesInput.dataset.chordType = chordId;
-
-            numNotesInput.addEventListener('change', (event) => {
-                const cType = event.target.dataset.chordType;
-                const newNumNotes = parseInt(event.target.value);
-                if (isNaN(newNumNotes) || newNumNotes < 1 || newNumNotes > 8) {
-                    event.target.value = chordDefinitions[cType].numNotes; 
-                    return;
-                }
-                chordDefinitions[cType].numNotes = newNumNotes;
-                const oldIndices = chordDefinitions[cType].currentKeyIndices;
-                const newIndices = Array(newNumNotes);
-                for (let i = 0; i < newNumNotes; i++) {
-                    if (i < oldIndices.length) {
-                        newIndices[i] = oldIndices[i];
-                    } else {
-                        newIndices[i] = null; 
-                    }
-                }
-                chordDefinitions[cType].currentKeyIndices = newIndices;
-                chordDefinitions[cType].labels = Array(newNumNotes).fill(null).map((_, i) => `Note ${i + 1}`);
-                
-                createChordKeySelectors(cType); 
-            });
-            numNotesControlDiv.appendChild(numNotesInput);
-            groupDiv.appendChild(numNotesControlDiv);
-        
-            const selectorsDiv = document.createElement('div');
-            selectorsDiv.classList.add('chord-key-selectors');
-            selectorsDiv.id = `chord-selectors-${chordId}`;
-            groupDiv.appendChild(selectorsDiv);
-        
-            chordButtonsRowDiv.appendChild(groupDiv);
-        }
-
-        function initChordSystem() {
-            NUM_CHORDS = parseInt(numChordsInput.value);
-            chordDefinitions = {}; 
-            if (chordButtonsRowDiv) chordButtonsRowDiv.innerHTML = ''; 
-
-            for (let i = 0; i < NUM_CHORDS; i++) {
-                const chordId = `cho${i + 1}`;
-                const defaultNumNotes = 4;
-                const defaultKeyIndices = Array(defaultNumNotes).fill(null).map((_, idx) => {
-                    const defaultProgression = [0, 4, 7, 10];
-                    let potentialIndex = defaultProgression[idx % defaultProgression.length];
-                    // Find the first valid key at or after the potential index
-                    for (let k = potentialIndex; k < keysData.length; k++) {
-                        if (keysData[k]) return k;
-                    }
-                    // If not found, wrap around and search from the beginning
-                    for (let k = 0; k < potentialIndex; k++) {
-                        if (keysData[k]) return k;
-                    }
-                    return null; // No valid keys exist
-                });
-
-                chordDefinitions[chordId] = {
-                    name: `Chord ${i + 1}`,
-                    numNotes: defaultNumNotes,
-                    currentKeyIndices: defaultKeyIndices,
-                    labels: Array(defaultNumNotes).fill(null).map((_, j) => `Note ${j + 1}`)
-                };
-                buildChordGroupUI(chordId); 
-                createChordKeySelectors(chordId); 
-            }
-        }
-
-        function setupChordControls() {
-            numChordsInput = document.getElementById('num-chords-input');
-            applyNumChordsBtn = document.getElementById('apply-num-chords-btn');
-            chordButtonsRowDiv = document.getElementById('chord-buttons-row');
-            arpToggleBtn = document.getElementById('arp-toggle-btn');
-
-            if (applyNumChordsBtn) applyNumChordsBtn.addEventListener('click', initChordSystem);
-            
-            arpToggleBtn.addEventListener('click', () => { 
-                isArpeggioActive = !isArpeggioActive; 
-                arpToggleBtn.textContent = `Arp: ${isArpeggioActive ? 'On' : 'Off'}`; 
-                arpToggleBtn.classList.toggle('active', isArpeggioActive);
-                if (!isArpeggioActive) { 
-                    stopArpLoop(); 
-                    document.querySelectorAll('.chord-button.playing').forEach(b => b.classList.remove('playing'));
-                }
-            });
-            
-            initChordSystem(); 
-        }
-
-        function createSequencerGrid() {
-            sequencerGridDiv = document.getElementById('sequencer-grid'); 
-            if (!sequencerGridDiv) return;
-            sequencerGridDiv.innerHTML = ''; 
-        
-            for (let r_drum = 0; r_drum < NUM_DRUM_ROWS; r_drum++) {
-                const actualRowIndex = r_drum; 
-                const drumName = DRUM_ROW_NAMES[r_drum];
-        
-                const rowWrapperDiv = document.createElement('div'); 
-                rowWrapperDiv.classList.add('sequencer-row-wrapper');
-                
-                const drumControlCell = document.createElement('div');
-                drumControlCell.classList.add('seq-drum-control-cell');
-
-                const drumLabel = document.createElement('div');
-                drumLabel.classList.add('seq-row-label');
-                drumLabel.textContent = drumName;
-                drumLabel.title = `Click to play ${drumName}`;
-                drumLabel.addEventListener('click', async () => {
-                    await initAudioContext();
-                    const drumSoundId = `manual_play_${drumName}_${Date.now()}`;
-                    if (drumSamples[drumName]) {
-                        const sourceNode = audioContext.createBufferSource();
-                        sourceNode.buffer = drumSamples[drumName];
-                        sourceNode.connect(keysMasterGain);
-                        sourceNode.start(audioContext.currentTime);
-                        activeOscillators[drumSoundId] = { bufferSourceNode: sourceNode, source: 'key' };
-                        sourceNode.onended = () => { delete activeOscillators[drumSoundId]; checkWaveformDrawingState(); };
-                    } else {
-                        let frequencyForDrumFallback = 100;
-                        if (drumName === 'Kick') frequencyForDrumFallback = 60;
-                        else if (drumName === 'Snare') frequencyForDrumFallback = 200;
-                        else if (drumName === 'Hi-Hat') frequencyForDrumFallback = 8000;
-                        playSound({ finalFreq: frequencyForDrumFallback, baseFreq: frequencyForDrumFallback }, drumSoundId, 'key', 0.2, DRUM_FALLBACK_SYNTHS[r_drum]);
-                    }
-                });
-
-                drumControlCell.appendChild(drumLabel);
-
-                const loadSampleBtn = document.createElement('button');
-                loadSampleBtn.textContent = 'Load .wav';
-                loadSampleBtn.classList.add('control-button');
-                loadSampleBtn.style.fontSize = '0.65em';
-                loadSampleBtn.style.padding = '2px 4px';
-                loadSampleBtn.dataset.drumIndex = r_drum;
-
-                const fileInput = document.createElement('input');
-                fileInput.type = 'file';
-                fileInput.accept = '.wav,audio/wav';
-                fileInput.style.display = 'none';
-                fileInput.dataset.drumIndex = r_drum;
-
-                loadSampleBtn.addEventListener('click', () => {
-                    fileInput.click();
-                });
-
-                fileInput.addEventListener('change', (event) => {
-                    loadCustomDrumSample(event, r_drum);
-                });
-
-                drumControlCell.appendChild(loadSampleBtn);
-                drumControlCell.appendChild(fileInput);
-                
-                rowWrapperDiv.appendChild(drumControlCell);
-        
-                const rowDiv = document.createElement('div'); 
-                rowDiv.classList.add('sequencer-row'); 
-                rowDiv.dataset.row = actualRowIndex;
-        
-                for (let s = 0; s < NUM_SEQ_STEPS; s++) { 
-                    const stepDiv = document.createElement('div'); 
-                    stepDiv.classList.add('sequencer-step');
-                    stepDiv.classList.add(`drum-${drumName.toLowerCase().replace(/\s+/g,'-')}`); 
-                    stepDiv.dataset.row = actualRowIndex; 
-                    stepDiv.dataset.step = s; 
-                    stepDiv.addEventListener('click', () => toggleSequencerStep(actualRowIndex, s));
-                    if (sequencerData[actualRowIndex] && sequencerData[actualRowIndex][s]) {
-                        stepDiv.classList.add('active');
-                    }
-                    rowDiv.appendChild(stepDiv); 
-                }
-                rowWrapperDiv.appendChild(rowDiv); 
-                sequencerGridDiv.appendChild(rowWrapperDiv);
-            }
-        
-            for (let r_melodic = 0; r_melodic < NUM_SEQ_MELODIC_ROWS; r_melodic++) {
-                const actualRowIndex = NUM_DRUM_ROWS + r_melodic; 
-        
-                const rowWrapperDiv = document.createElement('div'); 
-                rowWrapperDiv.classList.add('sequencer-row-wrapper');
-                
-                const keySelect = document.createElement('select'); 
-                keySelect.classList.add('seq-row-key-select'); 
-                keySelect.dataset.rowIndex = r_melodic; 
-                
-                let hasAnyKeys = false;
-                for (let k = 0; k < NUM_PIANO_KEYS; k++) { 
-                    if (!keysData[k]) continue;
-                    hasAnyKeys = true;
-                    const option = document.createElement('option'); option.value = k;
-                    const effectiveIntervalForSeqDisp = getEffectiveIntervalString(k);
-                    option.textContent = `Key ${k+1} (${effectiveIntervalForSeqDisp})`; 
-                    keySelect.appendChild(option); 
-                }
-                
-                if (!hasAnyKeys) {
-                    const option = document.createElement('option');
-                    option.textContent = "N/A"; option.value = "";
-                    keySelect.appendChild(option);
-                    keySelect.disabled = true;
-                    SEQ_ROW_KEY_INDICES[r_melodic] = undefined;
-                } else {
-                    keySelect.disabled = false;
-                    const currentAssignedKey = SEQ_ROW_KEY_INDICES[r_melodic];
-                    if (currentAssignedKey !== undefined && keysData[currentAssignedKey]) {
-                        keySelect.value = currentAssignedKey;
-                    } else {
-                        keySelect.selectedIndex = 0;
-                        SEQ_ROW_KEY_INDICES[r_melodic] = parseInt(keySelect.value, 10);
-                    }
-                }
-        
-                keySelect.addEventListener('change', (e) => { 
-                    const changedMelodicRowIndex = parseInt(e.target.dataset.rowIndex);
-                    SEQ_ROW_KEY_INDICES[changedMelodicRowIndex] = parseInt(e.target.value); 
-                });
-                rowWrapperDiv.appendChild(keySelect);
-        
-                const rowDiv = document.createElement('div'); 
-                rowDiv.classList.add('sequencer-row'); 
-                rowDiv.dataset.row = actualRowIndex;
-                for (let s = 0; s < NUM_SEQ_STEPS; s++) { 
-                    const stepDiv = document.createElement('div'); 
-                    stepDiv.classList.add('sequencer-step'); 
-                    stepDiv.dataset.row = actualRowIndex; 
-                    stepDiv.dataset.step = s; 
-                    stepDiv.addEventListener('click', () => toggleSequencerStep(actualRowIndex, s));
-                    if (sequencerData[actualRowIndex] && sequencerData[actualRowIndex][s]) {
-                        stepDiv.classList.add('active');
-                    } 
-                    rowDiv.appendChild(stepDiv); 
-                }
-                rowWrapperDiv.appendChild(rowDiv); 
-                sequencerGridDiv.appendChild(rowWrapperDiv);
-            }
-            updateKeyDisplays(); 
-        }
-
-        async function toggleSequencerStep(row, step) { 
-            await initAudioContext(); 
-            sequencerData[row][step] = !sequencerData[row][step];
-            const stepDiv = sequencerGridDiv.querySelector(`.sequencer-step[data-row="${row}"][data-step="${step}"]`);
-            if (stepDiv) stepDiv.classList.toggle('active', sequencerData[row][step]);
-        }
-        
-        function updateSequencerTempo(newTempo) { currentSeqTempoBPM = Math.max(20, Math.min(300, parseInt(newTempo, 10)));
-            if(seqTempoDisplay) seqTempoDisplay.textContent = `${currentSeqTempoBPM} BPM`; 
-            if (isSequencerPlaying) { stopSequencer(); startSequencer(); }
-            if (isArpeggioActive && arpLoopIntervalId) { 
-                const tempChordType = currentArpChordType;
-                stopArpLoop();
-                const arpButton = document.querySelector(`.chord-button[data-type="${tempChordType}"]`);
-                if(arpButton) {
-                    playChord(tempChordType); 
-                }
-            }
-        }
-
-        async function handleTapTempo() { 
-            await initAudioContext(); 
-            const now = performance.now();
-            if (tapTempoCount === 0 || (now - lastTapTime > 2000)) { tapTempoCount = 0; lastTapTime = now; tapTempoCount++; return; }
-            const diff = now - lastTapTime; lastTapTime = now; const currentTapBPM = 60000 / diff;
-            if (currentTapBPM > 30 && currentTapBPM < 300) { updateSequencerTempo(Math.round(currentTapBPM));
-                 if (seqTempoSlider) seqTempoSlider.value = currentSeqTempoBPM; if (seqTempoInput) seqTempoInput.value = currentSeqTempoBPM; }
-            tapTempoCount++;
-        }
-
-        function setupGlobalAudioControls() {
-            keysVolumeSlider = document.getElementById('keys-volume-slider'); sequencerVolumeSlider = document.getElementById('sequencer-volume-slider');
-            soundTypeKeysSelect = document.getElementById('sound-type-keys-select'); soundTypeSeqSelect = document.getElementById('sound-type-seq-select');
-            
-            exportSoundDefsBtn = document.getElementById('export-sound-definitions-btn');
-            importSoundDefsInput = document.getElementById('import-sound-definitions-input');
-            importSoundDefsBtn = document.getElementById('import-sound-definitions-btn');
-
-            if(keysVolumeSlider) { keysVolumeSlider.addEventListener('input', (e) => { if (keysMasterGain) keysMasterGain.gain.value = parseFloat(e.target.value); });
-                if(keysMasterGain) keysMasterGain.gain.value = parseFloat(keysVolumeSlider.value); }
-            if(sequencerVolumeSlider) { sequencerVolumeSlider.addEventListener('input', (e) => { if (sequencerMasterGain) sequencerMasterGain.gain.value = parseFloat(e.target.value); });
-                if(sequencerMasterGain) sequencerMasterGain.gain.value = parseFloat(sequencerVolumeSlider.value); }
-            
-            if(soundTypeKeysSelect) { soundTypeKeysSelect.addEventListener('change', (e) => currentSoundTypeKeys = e.target.value ); }
-            if(soundTypeSeqSelect) { soundTypeSeqSelect.addEventListener('change', (e) => currentSoundTypeSeq = e.target.value ); }
-            
-            if(exportSoundDefsBtn) exportSoundDefsBtn.addEventListener('click', exportSoundDefinitions);
-            if(importSoundDefsBtn) importSoundDefsBtn.addEventListener('click', () => importSoundDefsInput.click());
-            if(importSoundDefsInput) importSoundDefsInput.addEventListener('change', loadSoundDefinitions);
-
-            const initialSoundNames = extractSoundNames(soundDefinitionFunctionBody);
-            updateSoundSelectors(initialSoundNames);
-
-            // Set default sounds after populating the lists
-            if (soundTypeKeysSelect && initialSoundNames.includes('piano_wav')) {
-                soundTypeKeysSelect.value = 'piano_wav';
-            }
-            currentSoundTypeKeys = soundTypeKeysSelect.value;
-            currentSoundTypeSeq = soundTypeSeqSelect.value;
         }
 
         function extractSoundNames(codeString) {
@@ -1924,230 +1055,6 @@ ${soundDefinitionFunctionBody}
             if (event.target) event.target.value = null; 
         }
 
-        function handleApplySeqRows() { 
-            const newNumMelodicRows = parseInt(numSeqRowsInput.value, 10);
-            if (isNaN(newNumMelodicRows) || newNumMelodicRows < 0 || newNumMelodicRows > 13) { 
-                alert("Number of melodic rows must be between 0 and 13.");
-                numSeqRowsInput.value = NUM_SEQ_MELODIC_ROWS;
-                return;
-            }
-            NUM_SEQ_MELODIC_ROWS = newNumMelodicRows;
-            const totalRows = NUM_DRUM_ROWS + NUM_SEQ_MELODIC_ROWS;
-        
-            const oldSequencerData = sequencerData;
-            sequencerData = Array(totalRows).fill(null).map((_, r) => {
-                if (r < oldSequencerData.length && oldSequencerData[r]) {
-                    const oldRow = oldSequencerData[r];
-                    const newRow = Array(NUM_SEQ_STEPS).fill(false);
-                    for (let s = 0; s < Math.min(oldRow.length, NUM_SEQ_STEPS); s++) {
-                        newRow[s] = oldRow[s] || false;
-                    }
-                    return newRow;
-                }
-                return Array(NUM_SEQ_STEPS).fill(false);
-            });
-        
-            const oldKeyIndices = [...SEQ_ROW_KEY_INDICES];
-            SEQ_ROW_KEY_INDICES = Array(NUM_SEQ_MELODIC_ROWS);
-            for (let i = 0; i < NUM_SEQ_MELODIC_ROWS; i++) {
-                if (i < oldKeyIndices.length && oldKeyIndices[i] !== undefined && keysData[oldKeyIndices[i]]) {
-                    SEQ_ROW_KEY_INDICES[i] = oldKeyIndices[i];
-                } else {
-                    // Find the first available key
-                    const firstValidKeyIndex = keysData.findIndex(k => k !== null);
-                    SEQ_ROW_KEY_INDICES[i] = (firstValidKeyIndex !== -1) ? firstValidKeyIndex : undefined;
-                }
-            }
-            if (isSequencerPlaying) stopSequencer();
-            createSequencerGrid();
-        }
-
-        function handleApplySeqSteps() { 
-            const newNumSteps = parseInt(numSeqStepsInput.value, 10);
-            if (isNaN(newNumSteps) || newNumSteps < 4 || newNumSteps > 64) { 
-                alert("Number of steps must be between 4 and 64."); 
-                numSeqStepsInput.value = NUM_SEQ_STEPS; return; 
-            }
-            const oldNumSteps = NUM_SEQ_STEPS; 
-            NUM_SEQ_STEPS = newNumSteps;
-            const totalRows = NUM_DRUM_ROWS + NUM_SEQ_MELODIC_ROWS;
-
-            const newSequencerData = Array(totalRows).fill(null).map((_, r) => { 
-                const oldRow = sequencerData[r] || []; 
-                const newRow = Array(NUM_SEQ_STEPS).fill(false);
-                for (let s = 0; s < Math.min(oldNumSteps, NUM_SEQ_STEPS); s++) { 
-                    newRow[s] = oldRow[s] || false; 
-                } 
-                return newRow; 
-            });
-            sequencerData = newSequencerData; 
-            if (isSequencerPlaying) stopSequencer(); 
-            currentSeqStep = 0; 
-            createSequencerGrid(); 
-        }
-
-        function setupSequencerControls() {
-            seqPlayStopBtn = document.getElementById('seq-play-stop-btn'); seqTempoSlider = document.getElementById('seq-tempo-slider');
-            seqTempoDisplay = document.getElementById('seq-tempo-display'); seqTempoInput = document.getElementById('seq-tempo-input');
-            tapTempoBtn = document.getElementById('tap-tempo-btn'); numSeqStepsInput = document.getElementById('num-seq-steps-input');
-            applySeqStepsBtn = document.getElementById('apply-seq-steps-btn');
-            numSeqRowsInput = document.getElementById('num-seq-rows-input'); 
-            applySeqRowsBtn = document.getElementById('apply-seq-rows-btn'); 
-
-            if(seqPlayStopBtn) seqPlayStopBtn.addEventListener('click', async () => { await initAudioContext(); if (isSequencerPlaying) stopSequencer(); else startSequencer(); });
-            if(seqTempoSlider) seqTempoSlider.addEventListener('input', (e) => { updateSequencerTempo(e.target.value); if(seqTempoInput) seqTempoInput.value = e.target.value; });
-            if(seqTempoInput) seqTempoInput.addEventListener('change', (e) => { updateSequencerTempo(e.target.value); if(seqTempoSlider) seqTempoSlider.value = e.target.value;});
-            if(tapTempoBtn) tapTempoBtn.addEventListener('click', handleTapTempo); 
-            if(applySeqStepsBtn) applySeqStepsBtn.addEventListener('click', handleApplySeqSteps);
-            if(applySeqRowsBtn) applySeqRowsBtn.addEventListener('click', handleApplySeqRows); 
-
-            document.getElementById('save-sequence-btn')?.addEventListener('click', saveSequence);
-            const loadSeqInput = document.getElementById('load-sequence-input');
-            document.getElementById('load-sequence-btn')?.addEventListener('click', () => loadSeqInput?.click()); 
-            loadSeqInput?.addEventListener('change', loadSequence);
-            document.getElementById('export-midi-btn')?.addEventListener('click', exportMIDI);
-            
-            if (numSeqStepsInput) numSeqStepsInput.value = NUM_SEQ_STEPS; 
-            if (numSeqRowsInput) numSeqRowsInput.value = NUM_SEQ_MELODIC_ROWS; 
-            updateSequencerTempo(currentSeqTempoBPM); 
-            if (seqTempoSlider) seqTempoSlider.value = currentSeqTempoBPM; if (seqTempoInput) seqTempoInput.value = currentSeqTempoBPM;
-        }
-
-        async function startSequencer() { 
-            await initAudioContext(); 
-            if (isSequencerPlaying) return; 
-            isSequencerPlaying = true;
-            if(seqPlayStopBtn) { seqPlayStopBtn.textContent = "Stop"; seqPlayStopBtn.classList.add('active'); }
-            currentSeqStep = -1; 
-            const stepDurationMs = (60 / currentSeqTempoBPM) * 1000 / 4; 
-            
-            function tick() { 
-                if(!isSequencerPlaying) return; 
-                const prevStepDivs = sequencerGridDiv?.querySelectorAll(`.sequencer-step.current`);
-                prevStepDivs?.forEach(div => div.classList.remove('current')); 
-                currentSeqStep = (currentSeqStep + 1) % NUM_SEQ_STEPS;
-                const currentStepDivs = sequencerGridDiv?.querySelectorAll(`.sequencer-step[data-step="${currentSeqStep}"]`);
-                currentStepDivs?.forEach(div => div.classList.add('current'));
-                
-                const totalRows = NUM_DRUM_ROWS + NUM_SEQ_MELODIC_ROWS;
-                for (let dataRowIndex = 0; dataRowIndex < totalRows; dataRowIndex++) { 
-                    if (sequencerData[dataRowIndex] && sequencerData[dataRowIndex][currentSeqStep]) {
-                        if (dataRowIndex < NUM_DRUM_ROWS) { 
-                            const drumIndex = dataRowIndex;
-                            const drumName = DRUM_ROW_NAMES[drumIndex];
-                            const drumSoundId = `seq_drum_${drumName}_s${currentSeqStep}`;
-                            const noteDurSec = (stepDurationMs / 1000) * 0.95;
-
-                            if (drumSamples[drumName]) { 
-                                const sourceNode = audioContext.createBufferSource();
-                                sourceNode.buffer = drumSamples[drumName];
-                                sourceNode.connect(sequencerMasterGain);
-                                sourceNode.start(audioContext.currentTime);
-                                activeOscillators[drumSoundId] = { bufferSourceNode: sourceNode, source: 'sequencer_drum_sample' };
-                                sourceNode.onended = () => { delete activeOscillators[drumSoundId]; checkWaveformDrawingState(); };
-                            } else { 
-                                let frequencyForDrumFallback = 100; 
-                                if (drumName === 'Kick') frequencyForDrumFallback = 60;
-                                else if (drumName === 'Snare') frequencyForDrumFallback = 200;
-                                else if (drumName === 'Hi-Hat') frequencyForDrumFallback = 8000; 
-                                playSound({ finalFreq: frequencyForDrumFallback, baseFreq: frequencyForDrumFallback }, drumSoundId, 'sequencer_drum_synth', noteDurSec, DRUM_FALLBACK_SYNTHS[drumIndex]);
-                            }
-                        } else { 
-                            const melodicRowIndex = dataRowIndex - NUM_DRUM_ROWS;
-                            const keyIndexToPlay = SEQ_ROW_KEY_INDICES[melodicRowIndex]; 
-                            if (keyIndexToPlay === undefined || keyIndexToPlay === null || keyIndexToPlay < 0 || keyIndexToPlay >= NUM_PIANO_KEYS || !keysData[keyIndexToPlay]) continue; 
-                            const freqObject = getFrequencyForKey(keyIndexToPlay); 
-                            if (freqObject !== null) { 
-                                playSound(freqObject, `seq_r${dataRowIndex}_s${currentSeqStep}`, 'sequencer', (stepDurationMs / 1000) * 0.95); 
-                            }
-                        }
-                    }
-                }
-                if (isSequencerPlaying) { seqIntervalId = setTimeout(tick, stepDurationMs); }
-            }
-            tick(); 
-        }
-
-        function stopSequencer() { if (!isSequencerPlaying) return; isSequencerPlaying = false; clearTimeout(seqIntervalId); seqIntervalId = null;
-            if(seqPlayStopBtn) { seqPlayStopBtn.textContent = "Play"; seqPlayStopBtn.classList.remove('active');}
-            sequencerGridDiv?.querySelectorAll(`.sequencer-step.current`).forEach(div => div.classList.remove('current'));
-            Object.keys(activeOscillators).forEach(id => { 
-                if (activeOscillators[id] && (activeOscillators[id].source === 'sequencer' || 
-                                              activeOscillators[id].source === 'sequencer_drum_sample' ||
-                                              activeOscillators[id].source === 'sequencer_drum_synth')
-                   ) { 
-                    stopSound(id, 0.01); 
-                }
-            });
-        }
-        
-        async function loadCustomDrumSample(event, drumIndex) {
-            const file = event.target.files[0];
-            if (!file) { return; }
-            await initAudioContext();
-
-            const drumName = DRUM_ROW_NAMES[drumIndex];
-            if (!drumName) {
-                console.error(`Invalid drum index: ${drumIndex}`);
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = async (e) => {
-                try {
-                    const arrayBuffer = e.target.result;
-                    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-                    drumSamples[drumName] = audioBuffer;
-                    console.log(`Custom sample for ${drumName} loaded and decoded successfully.`);
-                    alert(`New sample for "${drumName}" loaded!`);
-                } catch (error) {
-                    console.error(`Error loading or decoding custom sample for ${drumName}:`, error);
-                    alert(`Failed to load sample for "${drumName}". Please ensure it's a valid WAV file. Error: ${error.message}`);
-                    drumSamples[drumName] = null;
-                }
-            };
-            reader.readAsArrayBuffer(file);
-            if (event.target) event.target.value = null;
-        }
-
-        function audioBufferToBase64(buffer) {
-            if (!buffer) return null;
-            const channels = [];
-            for (let i = 0; i < buffer.numberOfChannels; i++) {
-                const channelData = buffer.getChannelData(i);
-                const uint8Array = new Uint8Array(channelData.buffer);
-                let binary = '';
-                for (let j = 0; j < uint8Array.length; j++) {
-                    binary += String.fromCharCode(uint8Array[j]);
-                }
-                channels.push(window.btoa(binary));
-            }
-            return {
-                sampleRate: buffer.sampleRate,
-                length: buffer.length,
-                numberOfChannels: buffer.numberOfChannels,
-                channels: channels
-            };
-        }
-
-        async function base64ToAudioBuffer(data) {
-            if (!data || !audioContext) return null;
-            const { sampleRate, length, numberOfChannels, channels } = data;
-            const newBuffer = audioContext.createBuffer(numberOfChannels, length, sampleRate);
-
-            for (let i = 0; i < numberOfChannels; i++) {
-                const binary = window.atob(channels[i]);
-                const len = binary.length;
-                const bytes = new Uint8Array(len);
-                for (let j = 0; j < len; j++) {
-                    bytes[j] = binary.charCodeAt(j);
-                }
-                const float32Array = new Float32Array(bytes.buffer);
-                newBuffer.copyToChannel(float32Array, i);
-            }
-            return newBuffer;
-        }
-
         function saveSequence() {
             const savedDrumSamples = {};
             for (const drumName of DRUM_ROW_NAMES) {
@@ -2155,12 +1062,12 @@ ${soundDefinitionFunctionBody}
                     savedDrumSamples[drumName] = audioBufferToBase64(drumSamples[drumName]);
                 }
             }
-
+            
             const dataToSave = { 
-                version: 2.4,
+                version: 2.5,
                 numPianoKeys: NUM_PIANO_KEYS, 
                 currentMaxKeysPerRow: currentMaxKeysPerRow, 
-                keysData: keysData,
+                keysData: keysData, 
                 skin: currentSkin,
                 keyShape: currentKeyShape,
                 numSeqMelodicRows: NUM_SEQ_MELODIC_ROWS, 
@@ -2184,11 +1091,12 @@ ${soundDefinitionFunctionBody}
                 isKeyEditMode: isKeyEditMode,
                 areRowsStaggered: areRowsStaggered,
                 modWheelTarget: modWheelTarget,
-                isEdoModeActive: isEdoModeActive
+                isEdoModeActive: isEdoModeActive,
+                isFrequencyDisplayed: isFrequencyDisplayed
             };
             const jsonString = JSON.stringify(dataToSave, null, 2); 
             const blob = new Blob([jsonString], { type: "application/json" });
-            const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = "tunable_session_v2.4.json"; 
+            const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = "tunable_session_v2.5.json"; 
             document.body.appendChild(a);
             a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); alert("Session saved!");
         }
@@ -2197,6 +1105,10 @@ ${soundDefinitionFunctionBody}
             const file = event.target.files[0]; if (!file) return; const reader = new FileReader();
             reader.onload = async (e) => { try { 
                     const loadedData = JSON.parse(e.target.result);
+
+                    if (typeof loadedData.isFrequencyDisplayed === 'boolean') {
+                        setFrequencyDisplay(loadedData.isFrequencyDisplayed);
+                    }
 
                     if (loadedData.skin) {
                         applySkin(loadedData.skin);
@@ -2235,20 +1147,28 @@ ${soundDefinitionFunctionBody}
                     
                     isRootDynamic = !!loadedData.isRootDynamic;
                     const dynamicRootBtn = document.getElementById('toggle-dynamic-root-btn');
-                    dynamicRootBtn.textContent = `Root: ${isRootDynamic ? 'Dynamic' : 'Static'}`;
-                    dynamicRootBtn.classList.toggle('active', isRootDynamic);
+                    if (dynamicRootBtn) {
+                        dynamicRootBtn.textContent = `Root: ${isRootDynamic ? 'Dynamic' : 'Static'}`;
+                        dynamicRootBtn.classList.toggle('active', isRootDynamic);
+                    }
+
 
                     isEdoModeActive = !!loadedData.isEdoModeActive;
                     if (applyTuningBtn) {
                         applyTuningBtn.textContent = isEdoModeActive ? 'Apply JI' : 'Apply EDO';
                     }
                     
-                    rootNoteRatios = [...masterRootNoteRatios]; // Start with the master
+                    rootNoteRatios = [...masterRootNoteRatios]; 
                     generateRootTuningControls();
                     recalculateBaseFrequencies();
 
                     if (loadedData.keysData && Array.isArray(loadedData.keysData)) {
                         keysData = loadedData.keysData;
+                        keysData.forEach((key, i) => {
+                            if (key && typeof key.midiNote === 'undefined') {
+                                key.midiNote = 60 + i;
+                            }
+                        });
                         NUM_PIANO_KEYS = keysData.length;
                         if (numPianoKeysInput) numPianoKeysInput.value = NUM_PIANO_KEYS;
                     } else { 
@@ -2297,7 +1217,7 @@ ${soundDefinitionFunctionBody}
                                 const potentialIndex = Math.min(loadedData.seqRowKeyIndices[i], NUM_PIANO_KEYS > 0 ? NUM_PIANO_KEYS - 1 : 0);
                                 SEQ_ROW_KEY_INDICES[i] = keysData[potentialIndex] ? potentialIndex : keysData.findIndex(k => k !== null);
                             } else {
-                                SEQ_ROW_KEY_INDICES[i] = keysData.findIndex(k => k !== null); // Find first valid key
+                                SEQ_ROW_KEY_INDICES[i] = keysData.findIndex(k => k !== null); 
                             }
                         }
                     } else { 
@@ -2308,7 +1228,7 @@ ${soundDefinitionFunctionBody}
                     }
 
                     if (loadedData.rootNote && NOTE_NAMES.includes(loadedData.rootNote)) { currentRootNoteName = loadedData.rootNote; }
-                    selectRootNote(currentRootNoteName); // This will correctly apply dynamic root if it was on
+                    selectRootNote(currentRootNoteName); 
                     
                     if (typeof loadedData.octaveOffset === 'number') { currentOctaveOffset = loadedData.octaveOffset; }
                     
@@ -2378,7 +1298,7 @@ ${soundDefinitionFunctionBody}
                                     const buffer = await base64ToAudioBuffer(loadedData.savedDrumSamples[drumName]);
                                     drumSamples[drumName] = buffer;
                                     console.log(`Restored custom drum sample for ${drumName} from file.`);
-                                } catch (e) {
+                                 } catch (e) {
                                     console.error(`Failed to restore custom sample for ${drumName}:`, e);
                                     drumSamples[drumName] = null;
                                 }
@@ -2391,163 +1311,6 @@ ${soundDefinitionFunctionBody}
                     alert("Session loaded!");
                 } catch (error) { console.error("Error loading session:", error); alert("Failed to load session file. Error: " + error.message); }};
             reader.readAsText(file); if(event.target) event.target.value = null; 
-        }
-
-        function rebuildAllChordUIFromDefinitions() {
-            if (chordButtonsRowDiv) chordButtonsRowDiv.innerHTML = ''; 
-            numChordsInput.value = NUM_CHORDS;
-
-            for (let i = 0; i < NUM_CHORDS; i++) {
-                const chordId = `cho${i + 1}`;
-                if (!chordDefinitions[chordId]) { 
-                    const defaultNumNotes = 4;
-                    chordDefinitions[chordId] = {
-                        name: `Chord ${i + 1}`,
-                        numNotes: defaultNumNotes,
-                        currentKeyIndices: Array(defaultNumNotes).fill(null),
-                        labels: Array(defaultNumNotes).fill(null).map((_, j) => `Note ${j + 1}`)
-                    };
-                }
-                buildChordGroupUI(chordId); 
-                createChordKeySelectors(chordId); 
-            }
-        }
-
-        function TICKS_PER_BEAT() {
-            return 128;
-        }
-
-        function exportMIDI() {
-            function stringToBytes(str) { const bytes = []; for (let i = 0; i < str.length; i++) { bytes.push(str.charCodeAt(i)); } return bytes; }
-            function numberToBytes(num, byteCount) { const bytes = []; for (let i = byteCount - 1; i >= 0; i--) { bytes.push((num >> (i * 8)) & 0xFF); } return bytes;}
-            function encodeVLQ(value) { const result = []; let v = value; const tempBytes = []; tempBytes.push(v & 0x7F); v >>= 7;
-                while (v > 0) { tempBytes.push(v & 0x7F); v >>= 7; }
-                while (tempBytes.length > 0) { let b = tempBytes.pop(); if (tempBytes.length > 0) { b |= 0x80; } result.push(b); }
-                return result.length > 0 ? result : [0]; 
-            }
-            const midiFileBytes = []; const tracksData = []; 
-            const totalRows = NUM_DRUM_ROWS + NUM_SEQ_MELODIC_ROWS;
-            const ticksPerBeat = TICKS_PER_BEAT();
-
-            const DRUM_MIDI_NOTES = { "Kick": 36, "Snare": 38, "Hi-Hat": 42 }; 
-            const DRUM_MIDI_CHANNEL = 9; 
-
-            let drumTrackHasNotes = false;
-            const drumTrackEvents = [];
-            let drumCurrentAbsoluteTick = 0;
-            const drumTrackName = "Drums";
-            const drumTrackNameBytes = stringToBytes(drumTrackName);
-            drumTrackEvents.push({ delta: 0, eventBytes: [0xFF, 0x03, drumTrackNameBytes.length, ...drumTrackNameBytes]});
-
-            if (tracksData.length === 0) { 
-                const microSecondsPerBeat = Math.round(60000000 / currentSeqTempoBPM);
-                drumTrackEvents.push({ delta: 0, eventBytes: [0xFF, 0x51, 0x03, ...numberToBytes(microSecondsPerBeat, 3)] });
-            }
-
-            const drumTimedEvents = [];
-            for (let drumRowIndex = 0; drumRowIndex < NUM_DRUM_ROWS; drumRowIndex++) {
-                const drumName = DRUM_ROW_NAMES[drumRowIndex];
-                const midiNote = DRUM_MIDI_NOTES[drumName];
-                if (midiNote === undefined) continue;
-
-                for (let s = 0; s < NUM_SEQ_STEPS; s++) {
-                    if (sequencerData[drumRowIndex] && sequencerData[drumRowIndex][s]) {
-                        drumTrackHasNotes = true;
-                        const noteStartTick = s * (ticksPerBeat / 4);
-                        const noteDurationTicks = ticksPerBeat / 4; 
-                        const noteEndTick = noteStartTick + noteDurationTicks;
-                        const velocity = 100;
-                        drumTimedEvents.push({ tick: noteStartTick, type: 'on', bytes: [0x90 | DRUM_MIDI_CHANNEL, midiNote, velocity] });
-                        drumTimedEvents.push({ tick: noteEndTick, type: 'off', bytes: [0x80 | DRUM_MIDI_CHANNEL, midiNote, 0] });
-                    }
-                }
-            }
-            if (drumTrackHasNotes) {
-                drumTimedEvents.sort((a,b) => a.tick - b.tick || (a.type === 'off' ? 1 : -1)); 
-                for (const event of drumTimedEvents) {
-                    const delta = event.tick - drumCurrentAbsoluteTick;
-                    drumTrackEvents.push({ delta: delta, eventBytes: event.bytes });
-                    drumCurrentAbsoluteTick = event.tick;
-                }
-                const endOfDrumSequenceTick = NUM_SEQ_STEPS * (ticksPerBeat / 4);
-                const deltaToEndDrums = Math.max(0, endOfDrumSequenceTick - drumCurrentAbsoluteTick);
-                drumTrackEvents.push({ delta: deltaToEndDrums, eventBytes: [0xFF, 0x2F, 0x00] });
-                tracksData.push(drumTrackEvents);
-            }
-
-            for (let melodicRow = 0; melodicRow < NUM_SEQ_MELODIC_ROWS; melodicRow++) {
-                const dataRowIndex = NUM_DRUM_ROWS + melodicRow;
-                const keyIndexToPlay = SEQ_ROW_KEY_INDICES[melodicRow];
-
-                if (keyIndexToPlay === undefined || keyIndexToPlay === null || keyIndexToPlay < 0 || keyIndexToPlay >= NUM_PIANO_KEYS || !keysData[keyIndexToPlay]) continue;
-                let rowHasNotes = false; 
-                for (let s = 0; s < NUM_SEQ_STEPS; s++) { 
-                    if (sequencerData[dataRowIndex] && sequencerData[dataRowIndex][s]) { 
-                        rowHasNotes = true; break; 
-                    }
-                }
-                if (!rowHasNotes) continue; 
-                
-                let midiChannel;
-                if (melodicRow < DRUM_MIDI_CHANNEL) { 
-                    midiChannel = melodicRow;
-                } else if (melodicRow < 15) { 
-                    midiChannel = melodicRow + 1; 
-                } else {
-                    continue; 
-                }
-
-                const trackEventsList = [];  let currentAbsoluteTick = 0; 
-                const trackName = `Melody ${melodicRow + 1}`; const trackNameBytes = stringToBytes(trackName);
-                trackEventsList.push({ delta: 0, eventBytes: [0xFF, 0x03, trackNameBytes.length, ...trackNameBytes] });
-                
-                if (tracksData.length === 0) { 
-                    const microSecondsPerBeat = Math.round(60000000 / currentSeqTempoBPM);
-                    trackEventsList.push({ delta: 0, eventBytes: [0xFF, 0x51, 0x03, ...numberToBytes(microSecondsPerBeat, 3)] }); 
-                }
-
-                trackEventsList.push({ delta: 0, eventBytes: [0xB0 | midiChannel, 101, 0] }); 
-                trackEventsList.push({ delta: 0, eventBytes: [0xB0 | midiChannel, 100, 0] });
-                trackEventsList.push({ delta: 0, eventBytes: [0xB0 | midiChannel, 6, PITCH_BEND_RANGE_SEMITONES] }); 
-                trackEventsList.push({ delta: 0, eventBytes: [0xB0 | midiChannel, 38, 0] });
-                
-                const timedEvents = []; let lastKnownPitchBendOnChannel = 8192; 
-                for (let s = 0; s < NUM_SEQ_STEPS; s++) {
-                    if (sequencerData[dataRowIndex] && sequencerData[dataRowIndex][s]) {
-                        const freqObject = getFrequencyForKey(keyIndexToPlay); 
-                        if (freqObject === null) continue;
-                        const freq = freqObject.baseFreq; // Use base frequency for MIDI export
-                        const midiNoteValue = 69 + 12 * Math.log2(freq / 440.0); const closestMidiNote = Math.max(0, Math.min(127, Math.round(midiNoteValue)));
-                        const deviationSemitones = midiNoteValue - closestMidiNote; let pitchBendActual = 8192; 
-                        if (Math.abs(deviationSemitones) > 0.001) { const pitchBendUnits = (deviationSemitones / PITCH_BEND_RANGE_SEMITONES) * 8191;
-                            pitchBendActual = Math.round(8192 + pitchBendUnits); pitchBendActual = Math.max(0, Math.min(16383, pitchBendActual)); }
-                        const pitchBendLSB = pitchBendActual & 0x7F; const pitchBendMSB = (pitchBendActual >> 7) & 0x7F;
-                        const noteStartTick = s * (ticksPerBeat / 4); const noteDurationTicks = ticksPerBeat / 4; 
-                        const noteEndTick = noteStartTick + noteDurationTicks; const velocity = 100; 
-                        if (pitchBendActual !== lastKnownPitchBendOnChannel) {
-                            timedEvents.push({ tick: noteStartTick, type: 'pb', bytes: [0xE0 | midiChannel, pitchBendLSB, pitchBendMSB] });
-                            lastKnownPitchBendOnChannel = pitchBendActual; }
-                        timedEvents.push({ tick: noteStartTick, type: 'on', bytes: [0x90 | midiChannel, closestMidiNote, velocity] });
-                        timedEvents.push({ tick: noteEndTick, type: 'off', bytes: [0x80 | midiChannel, closestMidiNote, 0] });
-                    }}
-                timedEvents.sort((a, b) => { if (a.tick !== b.tick) return a.tick - b.tick; const typeOrder = { 'pb': 0, 'on': 1, 'off': 2 }; return typeOrder[a.type] - typeOrder[b.type]; });
-                for (const event of timedEvents) { const delta = event.tick - currentAbsoluteTick; trackEventsList.push({ delta: delta, eventBytes: event.bytes }); currentAbsoluteTick = event.tick; }
-                const endOfSequenceTick = NUM_SEQ_STEPS * (ticksPerBeat / 4); const deltaToEnd = Math.max(0, endOfSequenceTick - currentAbsoluteTick);
-                trackEventsList.push({ delta: deltaToEnd, eventBytes: [0xFF, 0x2F, 0x00] }); 
-                tracksData.push(trackEventsList);
-            }
-
-            if (tracksData.length === 0) { alert("No notes in sequencer to export."); return; }
-
-            midiFileBytes.push(...stringToBytes('MThd')); midiFileBytes.push(...numberToBytes(6, 4)); midiFileBytes.push(...numberToBytes(1, 2)); 
-            midiFileBytes.push(...numberToBytes(tracksData.length, 2)); midiFileBytes.push(...numberToBytes(ticksPerBeat, 2)); 
-            for (const trackEvents of tracksData) { const trackChunkBytes = [];
-                for (const event of trackEvents) { trackChunkBytes.push(...encodeVLQ(event.delta)); trackChunkBytes.push(...event.eventBytes); }
-                midiFileBytes.push(...stringToBytes('MTrk')); midiFileBytes.push(...numberToBytes(trackChunkBytes.length, 4)); midiFileBytes.push(...trackChunkBytes);
-            }
-            const byteArray = new Uint8Array(midiFileBytes); const blob = new Blob([byteArray], { type: 'audio/midi' });
-            const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = 'sequencer_output.mid';
-            document.body.appendChild(link); link.click(); document.body.removeChild(link); URL.revokeObjectURL(url); alert("MIDI file exported!");
         }
 
         function recalculateBaseFrequencies() {
@@ -2631,7 +1394,7 @@ ${soundDefinitionFunctionBody}
                         }
                         newRatios.push(newRatio);
                     }
-                    masterRootNoteRatios = newRatios; // Save user's custom tuning as the new master
+                    masterRootNoteRatios = newRatios; 
                     rootNoteRatios = [...masterRootNoteRatios];
 
                     recalculateBaseFrequencies();
@@ -2641,188 +1404,34 @@ ${soundDefinitionFunctionBody}
                     alert('Error applying tuning: ' + error.message);
                 }
             });
-            container.appendChild(applyBtn);
-        }
-        
-        function setupMIDI() {
-            midiInSelect = document.getElementById('midi-in-select');
-            midiOutSelect = document.getElementById('midi-out-select');
-            midiInToggleButton = document.getElementById('midi-in-toggle-btn');
-            midiOutToggleButton = document.getElementById('midi-out-toggle-btn');
-            modWheelSelect = document.getElementById('midi-mod-wheel-select');
-
-            if (navigator.requestMIDIAccess) {
-                navigator.requestMIDIAccess({ sysex: false })
-                    .then(onMIDISuccess, onMIDIFailure);
-            } else {
-                console.warn("WebMIDI is not supported in this browser.");
-                midiInToggleButton.disabled = true;
-                midiOutToggleButton.disabled = true;
-                midiInSelect.disabled = true;
-                midiOutSelect.disabled = true;
-            }
-
-            midiInToggleButton.addEventListener('click', toggleMidiIn);
-            midiOutToggleButton.addEventListener('click', toggleMidiOut);
-            midiInSelect.addEventListener('change', setMidiInput);
-            midiOutSelect.addEventListener('change', setMidiOutput);
-            modWheelSelect.addEventListener('change', (e) => {
-                modWheelTarget = e.target.value;
+            
+            // MODIFIED: Create and add the Dynamic Root button here
+            const dynamicRootBtn = document.createElement('button');
+            dynamicRootBtn.id = 'toggle-dynamic-root-btn';
+            dynamicRootBtn.textContent = `Root: ${isRootDynamic ? 'Dynamic' : 'Static'}`;
+            dynamicRootBtn.classList.add('control-button');
+            dynamicRootBtn.style.fontSize = "0.8em";
+            dynamicRootBtn.style.padding = "5px 8px";
+            dynamicRootBtn.classList.toggle('active', isRootDynamic);
+            dynamicRootBtn.addEventListener('click', () => {
+                isRootDynamic = !isRootDynamic;
+                dynamicRootBtn.textContent = `Root: ${isRootDynamic ? 'Dynamic' : 'Static'}`;
+                dynamicRootBtn.classList.toggle('active', isRootDynamic);
+                if (!isRootDynamic) {
+                    // Reset to original master tuning when switching back to static
+                    rootNoteRatios = [...masterRootNoteRatios];
+                    recalculateBaseFrequencies();
+                    updateRootTuningInputs();
+                    selectRootNote(currentRootNoteName); 
+                } else {
+                    // When switching to dynamic, re-select the root to apply the new relative tuning
+                    selectRootNote(currentRootNoteName);
+                }
             });
+
+            container.appendChild(applyBtn);
+            container.appendChild(dynamicRootBtn); // Add it to the container
         }
-
-        function onMIDISuccess(m) {
-            midiAccess = m;
-            updateMidiDeviceLists();
-            midiAccess.onmidistatechange = updateMidiDeviceLists;
-        }
-
-        function onMIDIFailure(msg) {
-            console.error(`Failed to get MIDI access - ${msg}`);
-            alert(`Failed to get MIDI access. Please ensure your browser has permissions.`);
-        }
-
-        function updateMidiDeviceLists() {
-            if (!midiAccess) return;
-            midiInSelect.innerHTML = '';
-            if (midiAccess.inputs.size > 0) {
-                midiAccess.inputs.forEach(input => {
-                    const option = document.createElement('option');
-                    option.value = input.id;
-                    option.textContent = input.name;
-                    midiInSelect.appendChild(option);
-                });
-            } else {
-                midiInSelect.innerHTML = '<option value="">(No devices)</option>';
-            }
-            setMidiInput();
-
-            midiOutSelect.innerHTML = '';
-            if (midiAccess.outputs.size > 0) {
-                midiAccess.outputs.forEach(output => {
-                    const option = document.createElement('option');
-                    option.value = output.id;
-                    option.textContent = output.name;
-                    midiOutSelect.appendChild(option);
-                });
-            } else {
-                midiOutSelect.innerHTML = '<option value="">(No devices)</option>';
-            }
-            setMidiOutput();
-        }
-        
-        function setMidiInput() {
-            if (selectedMidiInput) {
-                selectedMidiInput.onmidimessage = null;
-            }
-            const selectedId = midiInSelect.value;
-            selectedMidiInput = midiAccess.inputs.get(selectedId);
-            if (selectedMidiInput && isMidiInActive) {
-                selectedMidiInput.onmidimessage = handleMidiMessage;
-            }
-        }
-        
-        function setMidiOutput() {
-            const selectedId = midiOutSelect.value;
-            selectedMidiOutput = midiAccess.outputs.get(selectedId);
-        }
-
-        function toggleMidiIn() {
-            isMidiInActive = !isMidiInActive;
-            midiInToggleButton.textContent = isMidiInActive ? "On" : "Off";
-            midiInToggleButton.classList.toggle('active', isMidiInActive);
-            setMidiInput(); 
-        }
-
-        function toggleMidiOut() {
-            isMidiOutActive = !isMidiOutActive;
-            midiOutToggleButton.textContent = isMidiOutActive ? "On" : "Off";
-            midiOutToggleButton.classList.toggle('active', isMidiOutActive);
-        }
-        
-        async function handleMidiMessage(event) {
-            const command = event.data[0] & 0xF0;
-            const note = event.data[1];
-            const velocity = event.data[2];
-            const MIDI_C4 = 60;
-            const keyIndex = note - MIDI_C4;
-
-            if (command === 0x90 && velocity > 0) { // Note On
-                if (keyIndex < 0 || keyIndex >= NUM_PIANO_KEYS || !keysData[keyIndex]) return;
-
-                const targetKeyElement = document.querySelector(`.piano-key[data-key-index="${keyIndex}"]`);
-                const soundId = `keyboard_key_${keyIndex}`;
-                
-                if (!activeKeyboardNotes[keyIndex]) {
-                    activeKeyboardNotes[keyIndex] = true;
-                    if (targetKeyElement) {
-                        await initAudioContext();
-                        const freqObject = getFrequencyForKey(keyIndex);
-                        if (freqObject !== null) {
-                            playSound(freqObject, soundId, 'key');
-                            targetKeyElement.classList.add('keyboard-playing');
-                        }
-                    }
-                }
-            } else if (command === 0x80 || (command === 0x90 && velocity === 0)) { // Note Off
-                 if (keyIndex < 0 || keyIndex >= NUM_PIANO_KEYS) return;
-                 const soundId = `keyboard_key_${keyIndex}`;
-                 if (activeKeyboardNotes[keyIndex]) {
-                    activeKeyboardNotes[keyIndex] = false;
-                    stopSound(soundId);
-                    const targetKeyElement = document.querySelector(`.piano-key[data-key-index="${keyIndex}"]`);
-                    if (targetKeyElement) {
-                        targetKeyElement.classList.remove('keyboard-playing');
-                    }
-                }
-            } else if (command === 0xE0) { // Pitch Bend
-                const pitchBendValue = (event.data[2] << 7) | event.data[1];
-                const normalizedBend = (pitchBendValue - 8192) / 8192;
-                globalPitchShiftSemitones = normalizedBend * PITCH_BEND_RANGE_SEMITONES;
-                updatePitchShiftUI();
-                updateAllActiveNotePitches();
-            } else if (command === 0xB0) { // Control Change
-                const ccNumber = event.data[1];
-                const ccValue = event.data[2];
-                if (ccNumber === 1) { // Mod Wheel (CC #1)
-                    handleModWheel(ccValue);
-                }
-            }
-        }
-
-        function handleModWheel(value) { // value is 0-127
-            const normalizedValue = value / 127.0;
-
-            switch(modWheelTarget) {
-                case 'keys_vol':
-                    if (keysMasterGain) keysMasterGain.gain.setTargetAtTime(normalizedValue, audioContext.currentTime, 0.01);
-                    if (keysVolumeSlider) keysVolumeSlider.value = normalizedValue;
-                    break;
-                case 'seq_vol':
-                    if (sequencerMasterGain) sequencerMasterGain.gain.setTargetAtTime(normalizedValue, audioContext.currentTime, 0.01);
-                    if (sequencerVolumeSlider) sequencerVolumeSlider.value = normalizedValue;
-                    break;
-                case 'tempo':
-                    const minTempo = parseFloat(seqTempoSlider.min) || 30;
-                    const maxTempo = parseFloat(seqTempoSlider.max) || 280;
-                    const newTempo = minTempo + normalizedValue * (maxTempo - minTempo);
-                    updateSequencerTempo(Math.round(newTempo));
-                    if (seqTempoSlider) seqTempoSlider.value = Math.round(newTempo);
-                    if (seqTempoInput) seqTempoInput.value = Math.round(newTempo);
-                    break;
-                case 'pitch':
-                    const minPitch = parseFloat(pitchShiftSlider.min) || -2;
-                    const maxPitch = parseFloat(pitchShiftSlider.max) || 2;
-                    globalPitchShiftSemitones = minPitch + normalizedValue * (maxPitch - minPitch);
-                    updatePitchShiftUI();
-                    updateAllActiveNotePitches();
-                    break;
-                case 'none':
-                default:
-                    return;
-            }
-        }
-
 
         async function handleDocumentKeyDown(event) {
             const activeElement = document.activeElement;
@@ -2866,13 +1475,41 @@ ${soundDefinitionFunctionBody}
             isKeyEditMode = newState;
             const container = document.querySelector('.piano-container');
             const btn = document.getElementById('toggle-key-edit-btn');
+            container.classList.toggle('key-edit-mode-on', isKeyEditMode); 
             container.classList.toggle('key-edit-mode-off', !isKeyEditMode);
-            btn.textContent = `Key Edit: ${isKeyEditMode ? 'On' : 'Off'}`;
-            btn.classList.toggle('active', isKeyEditMode);
-            // Re-render keys to apply draggable attribute and show/hide placeholders
-            createPianoKeysAndRootSelector();
+            if (btn) btn.textContent = `Key Edit: ${isKeyEditMode ? 'On' : 'Off'}`;
+            if (btn) btn.classList.toggle('active', isKeyEditMode);
+            document.querySelectorAll('.key-wrapper').forEach(kw => {
+                kw.draggable = isKeyEditMode;
+            });
         }
         function toggleKeyEditMode() { setKeyEditMode(!isKeyEditMode); }
+
+        function setFrequencyDisplay(newState) {
+            isFrequencyDisplayed = newState;
+            const btn = document.getElementById('toggle-frequency-display-btn');
+            if (btn) {
+                btn.textContent = `Display Freq: ${isFrequencyDisplayed ? 'On' : 'Off'}`;
+                btn.classList.toggle('active', isFrequencyDisplayed);
+            }
+            updateKeyDisplays();
+        }
+        function toggleFrequencyDisplay() { setFrequencyDisplay(!isFrequencyDisplayed); }
+
+        function setFullscreen(state) {
+            const container = document.querySelector('.piano-container');
+            const closeBtn = document.getElementById('close-fullscreen-btn');
+            if (state) {
+                container.classList.add('fullscreen-keys-active');
+                closeBtn.style.display = 'block';
+                if (isKeyEditMode) {
+                    setKeyEditMode(false); 
+                }
+            } else {
+                container.classList.remove('fullscreen-keys-active');
+                closeBtn.style.display = 'none';
+            }
+        }
 
         function setRowStagger(newState) {
             areRowsStaggered = newState;
@@ -2884,15 +1521,6 @@ ${soundDefinitionFunctionBody}
         }
         function toggleRowStagger() { setRowStagger(!areRowsStaggered); }
 
-        function muteAll() {
-            Object.keys(activeOscillators).forEach(id => stopSound(id, 0.01));
-            if (isArpeggioActive) stopArpLoop();
-            stopActiveChordSounds();
-            document.querySelectorAll('.piano-key.playing, .piano-key.keyboard-playing, .piano-key.chord-playing').forEach(k => {
-                k.classList.remove('playing', 'keyboard-playing', 'chord-playing');
-            });
-        }
-
         function updatePitchShiftUI() {
             if (pitchShiftSlider) {
                 pitchShiftSlider.value = globalPitchShiftSemitones;
@@ -2902,52 +1530,22 @@ ${soundDefinitionFunctionBody}
             }
         }
 
-        function updateAllActiveNotePitches() {
-            const now = audioContext.currentTime;
-            const pitchShiftFactor = Math.pow(2, globalPitchShiftSemitones / 12);
-            for (const soundId in activeOscillators) {
-                const soundObject = activeOscillators[soundId];
-                if (soundObject && soundObject.baseFrequency && soundObject.oscillator) {
-                    const newFreq = soundObject.baseFrequency * pitchShiftFactor;
-                    if(soundObject.oscillator.frequency) { // standard oscillator
-                        soundObject.oscillator.frequency.cancelScheduledValues(now);
-                        soundObject.oscillator.frequency.linearRampToValueAtTime(newFreq, now + 0.01);
-                    } else if (soundObject.oscillator.playbackRate) { // sample source
-                        const baseSampleFreq = 220.0;
-                        const newPlaybackRate = newFreq / baseSampleFreq;
-                        soundObject.oscillator.playbackRate.cancelScheduledValues(now);
-                        soundObject.oscillator.playbackRate.linearRampToValueAtTime(newPlaybackRate, now + 0.01);
-                    }
-                }
-            }
-        }
-
         function setupExtraUIControls() {
             skinSelect = document.getElementById('skin-select');
             keyShapeSelect = document.getElementById('key-shape-select');
             edoInput = document.getElementById('edo-input');
             applyTuningBtn = document.getElementById('apply-edo-btn');
-            const dynamicRootBtn = document.getElementById('toggle-dynamic-root-btn');
 
             document.getElementById('toggle-key-edit-btn')?.addEventListener('click', toggleKeyEditMode);
             document.getElementById('toggle-row-stagger-btn')?.addEventListener('click', toggleRowStagger);
             document.getElementById('mute-all-btn')?.addEventListener('click', muteAll);
+            document.getElementById('toggle-frequency-display-btn')?.addEventListener('click', toggleFrequencyDisplay);
+            document.getElementById('toggle-fullscreen-btn')?.addEventListener('click', () => setFullscreen(true));
+            document.getElementById('close-fullscreen-btn')?.addEventListener('click', () => setFullscreen(false));
 
             if (skinSelect) skinSelect.addEventListener('change', (e) => applySkin(e.target.value));
             if (keyShapeSelect) keyShapeSelect.addEventListener('change', (e) => applyKeyShape(e.target.value));
             if (applyTuningBtn) applyTuningBtn.addEventListener('click', handleApplyEdoOrJi);
-            if (dynamicRootBtn) dynamicRootBtn.addEventListener('click', () => {
-                isRootDynamic = !isRootDynamic;
-                dynamicRootBtn.textContent = `Root: ${isRootDynamic ? 'Dynamic' : 'Static'}`;
-                dynamicRootBtn.classList.toggle('active', isRootDynamic);
-                if (!isRootDynamic) {
-                    // Reset to original master tuning when switching back to static
-                    rootNoteRatios = [...masterRootNoteRatios];
-                    recalculateBaseFrequencies();
-                    updateRootTuningInputs();
-                    selectRootNote(currentRootNoteName); // Re-select to apply static freq
-                }
-            });
         }
         
         function applySkin(skinClassName) {
@@ -2958,12 +1556,12 @@ ${soundDefinitionFunctionBody}
         function applyKeyShape(shapeClassName) {
             const container = document.getElementById('piano-keys-container');
             if (container) {
-                container.className = 'piano-keys-container'; // Reset classes
+                container.className = 'piano-keys-container'; 
                 container.classList.add(shapeClassName);
                 if (areRowsStaggered) container.classList.add('staggered-rows');
             }
             currentKeyShape = shapeClassName;
-            applyZoom(zoomSlider.value); // Re-apply zoom to recalculate shape sizes
+            applyZoom(zoomSlider.value); 
         }
 
         function handleApplyEdoOrJi() {
@@ -2971,7 +1569,6 @@ ${soundDefinitionFunctionBody}
                 // --- Apply JI Logic (revert root system) ---
                 masterRootNoteRatios = [...JUST_INTONATION_RATIOS];
 
-                // Recalculate current root ratios based on dynamic mode
                 rootNoteRatios = [...masterRootNoteRatios]; 
                 if (isRootDynamic) {
                     const rootIndex = NOTE_NAMES.indexOf(currentRootNoteName);
@@ -2983,7 +1580,7 @@ ${soundDefinitionFunctionBody}
                 
                 recalculateBaseFrequencies();
                 updateRootTuningInputs();
-                selectRootNote(currentRootNoteName); // This re-selects and updates displays
+                selectRootNote(currentRootNoteName); 
 
                 applyTuningBtn.textContent = 'Apply EDO';
                 isEdoModeActive = false;
@@ -3031,7 +1628,6 @@ ${soundDefinitionFunctionBody}
 
 
         document.addEventListener('DOMContentLoaded', async () => {
-            // Get UI elements
             octaveUpBtn = document.getElementById('octave-up-btn'); 
             octaveDownBtn = document.getElementById('octave-down-btn');
             octaveDisplaySpan = document.getElementById('octave-display'); 
@@ -3042,7 +1638,6 @@ ${soundDefinitionFunctionBody}
             pitchShiftSlider = document.getElementById('pitch-shift-slider');
             pitchShiftDisplay = document.getElementById('pitch-shift-display');
 
-            // --- CHANGED: Get sound definitions from the globally available function ---
             try {
                 if (typeof getSoundDefinitionFunctionBody !== 'function') {
                     throw new Error("sound-definitions.js did not load correctly.");
@@ -3063,13 +1658,11 @@ ${soundDefinitionFunctionBody}
                 `;
             }
 
-            // Create the sound generator function from the retrieved string
             currentSoundGenerator = new Function(
                 'soundType', 'frequency', 'now', 'audioContext', 'masterGainNode', 'soundId', 'activeOscillators',
                 soundDefinitionFunctionBody
             );
 
-            // Now run the rest of the setup
             setupExtraUIControls();
             await initAudioContext(); 
             setupGlobalAudioControls(); 
@@ -3087,7 +1680,9 @@ ${soundDefinitionFunctionBody}
             if(applyPianoKeysBtn) applyPianoKeysBtn.addEventListener('click', handleApplyPianoKeys);
             if(applyMaxKeysRowBtn) applyMaxKeysRowBtn.addEventListener('click', handleApplyMaxKeysPerRow);
 
-            createPianoKeysAndRootSelector(); 
+            createPianoKeysAndRootSelector();
+            setKeyEditMode(isKeyEditMode);
+
             setupChordControls(); 
             createSequencerGrid(); 
             setupSequencerControls(); 
