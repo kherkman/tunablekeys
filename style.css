@@ -174,6 +174,7 @@ body {
     gap: 15px;
     max-width: 98vw;
     transition: background-color 0.3s;
+    position: relative; /* ADDED: For fullscreen context */
 }
 
 .main-instrument-area {
@@ -236,8 +237,7 @@ body {
     gap: 10px;
     align-items: center;
     width: 100%;
-    margin-bottom: 8px;
-    padding: 6px;
+    padding: 8px;
     background-color: var(--bg-control-row); 
     border-radius: 6px;
 }
@@ -254,7 +254,6 @@ body {
     gap: 10px; 
     align-items: center;
     width: 100%;
-    margin-bottom: 10px;
     padding: 8px;
     background-color: var(--bg-control-row-alt);
     border-radius: 6px;
@@ -282,8 +281,10 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin-bottom: 12px;
     gap: 12px;
+    padding: 8px;
+    background-color: var(--bg-control-row);
+    border-radius: 6px;
 }
 
 .top-controls-row {
@@ -425,7 +426,7 @@ input[type=range]::-moz-range-thumb {
 
 .key-placeholder {
     width: var(--key-width, 65px);
-    height: 145px;
+    height: 175px; /* MODIFIED: Increased height to match wrapper */
     border: 2px dashed var(--border-color-light);
     border-radius: 8px;
     display: flex;
@@ -448,12 +449,28 @@ input[type=range]::-moz-range-thumb {
     border-color: var(--color-accent-primary);
 }
 
+/* ADDED: MIDI Note Input Styling */
+.midi-note-input {
+    padding: 4px;
+    font-size: 0.7em;
+    text-align: center;
+    border: 1px solid var(--border-color-dark);
+    background-color: var(--bg-input);
+    color: var(--color-text-main);
+    border-radius: 4px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+    width: 45px;
+    box-sizing: border-box;
+    margin-bottom: 2px;
+}
+
 .interval-input {
     padding: 5px; font-size: 0.75em; text-align: center; border: 1px solid var(--border-color-dark);
     background-color: var(--bg-input); color: var(--color-text-main);
     border-radius: 4px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.1); flex-shrink: 0;
 }
-.interval-input:focus {
+.interval-input:focus, .midi-note-input:focus {
     outline: none; border-color: var(--color-accent-primary);
     box-shadow: 0 0 4px color-mix(in srgb, var(--color-accent-primary) 50%, transparent);
 }
@@ -474,17 +491,27 @@ input[type=range]::-moz-range-thumb {
 }
 .note-name { font-size: 0.9em; margin-bottom: 3px; }
 .interval-display { font-size: 0.65em; color: var(--color-text-key-natural); }
-.piano-key.playing .interval-display, .piano-key.keyboard-playing .interval-display { color: #f0f0f0; }
+/* ADDED: Frequency Display Styling */
+.frequency-display {
+    font-size: 0.6em;
+    color: var(--color-text-key-natural);
+    opacity: 0.8;
+    margin-top: 2px;
+    display: none; /* Initially hidden */
+}
+.piano-key.playing .interval-display, .piano-key.keyboard-playing .interval-display,
+.piano-key.playing .frequency-display, .piano-key.keyboard-playing .frequency-display { color: #f0f0f0; }
 
 .piano-key.sharp-flat-key { background: var(--bg-key-sharp); color: var(--color-text-key-sharp); }
 .piano-key.sharp-flat-key:hover { background: var(--bg-key-sharp-hover); }
 .piano-key.sharp-flat-key.playing, .piano-key.sharp-flat-key.keyboard-playing { background: var(--bg-key-sharp-playing); color: white; }
-.piano-key.sharp-flat-key .interval-display { color: var(--color-text-muted); }
-.piano-key.sharp-flat-key.playing .interval-display, .piano-key.sharp-flat-key.keyboard-playing .interval-display { color: #f0f0f0; }
+.piano-key.sharp-flat-key .interval-display, .piano-key.sharp-flat-key .frequency-display { color: var(--color-text-muted); }
+.piano-key.sharp-flat-key.playing .interval-display, .piano-key.sharp-flat-key.keyboard-playing .interval-display,
+.piano-key.sharp-flat-key.playing .frequency-display, .piano-key.sharp-flat-key.keyboard-playing .frequency-display { color: #f0f0f0; }
 
 .piano-key.chord-playing { background: var(--bg-chord-playing); color: white; }
 .piano-key.sharp-flat-key.chord-playing { background: var(--bg-chord-sharp-playing); }
-.piano-key.chord-playing .interval-display { color: #f0f0f0; }
+.piano-key.chord-playing .interval-display, .piano-key.chord-playing .frequency-display { color: #f0f0f0; }
 
 .shape-square .piano-key { height: var(--key-width, 65px); width: var(--key-width, 65px) !important; justify-content: center; }
 .shape-circle .piano-key { height: var(--key-width, 65px); width: var(--key-width, 65px) !important; border-radius: 50%; justify-content: center; }
@@ -513,28 +540,33 @@ input[type=range]::-moz-range-thumb {
 .key-wrapper.dragging { opacity: 0.4; }
 .key-wrapper.drag-over, .key-placeholder.drag-over { border: 2px dashed var(--color-accent-primary); border-radius: 8px; }
 
+/* MODIFIED: Updated Key Edit Mode CSS */
 .key-edit-mode-off .interval-input,
-.key-edit-mode-off .delete-key-btn {
+.key-edit-mode-off .delete-key-btn,
+.key-edit-mode-off .midi-note-input {
     display: none;
 }
-.key-edit-mode-off .key-wrapper {
-    cursor: default;
+.key-edit-mode-on .interval-input,
+.key-edit-mode-on .delete-key-btn,
+.key-edit-mode-on .midi-note-input {
+    display: block;
 }
-.key-edit-mode-off .piano-key {
-    cursor: pointer;
-}
-.key-edit-mode-off .key-placeholder {
-    display: none;
-}
+
+.key-edit-mode-off .key-wrapper { cursor: default; }
+.key-edit-mode-off .piano-key { cursor: pointer; }
+.key-edit-mode-off .key-placeholder { display: none; }
+.key-edit-mode-on .key-placeholder { display: flex; }
 
 .collapsible-section {
     width: 100%;
+    margin-bottom: 10px;
 }
+/* MODIFIED: Collapsible summary styling */
 details > summary {
-    list-style: none;
+    list-style: none; /* Hide the default marker/triangle */
 }
 details > summary::-webkit-details-marker {
-    display: none;
+    display: none; /* Hide the default marker in Chrome */
 }
 .collapsible-section-summary {
     cursor: pointer;
@@ -544,12 +576,17 @@ details > summary::-webkit-details-marker {
     padding: 8px 12px;
     background-color: var(--bg-control-row);
     border-radius: 6px;
-    margin-bottom: 10px;
     transition: background-color 0.2s;
+    user-select: none;
 }
 .collapsible-section-summary:hover {
     filter: brightness(1.1);
 }
+/* ADDED: Add margin to the content of the details tag */
+details[open] > *:not(summary) {
+    margin-top: 10px;
+}
+
 
 .chord-config-row {
     display: flex;
@@ -760,6 +797,67 @@ details > summary::-webkit-details-marker {
     gap: 10px;
 }
 
+/* --- ADDED: Fullscreen Mode Styles --- */
+#close-fullscreen-btn {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    z-index: 1001;
+    background-color: rgba(44, 62, 80, 0.8);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 24px;
+    line-height: 40px;
+    text-align: center;
+    padding: 0;
+    border: 2px solid white;
+}
+
+.piano-container.fullscreen-keys-active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    padding: 0;
+    border-radius: 0;
+    z-index: 1000;
+    overflow: hidden;
+    justify-content: center;
+}
+
+.fullscreen-keys-active > .main-instrument-area {
+    height: 100%;
+    width: 100%;
+}
+.fullscreen-keys-active .keys-area {
+    height: 100%;
+    width: 100%;
+}
+.fullscreen-keys-active .keys-scroller {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center; /* Center keys vertically */
+    justify-content: center;
+    overflow: auto;
+}
+
+/* Hide all other elements in fullscreen */
+.fullscreen-keys-active > *:not(.main-instrument-area):not(#close-fullscreen-btn) {
+    display: none;
+}
+.fullscreen-keys-active .main-instrument-area > *:not(.keys-area) {
+    display: none;
+}
+.fullscreen-keys-active .keys-area > *:not(.keys-scroller) {
+    display: none;
+}
+
+
 @media (max-width: 1000px) {
     .main-instrument-area { flex-direction: column; align-items: center; }
     .root-selector {
@@ -779,6 +877,7 @@ details > summary::-webkit-details-marker {
     .top-controls-row { gap: 10px; }
     .octave-controls, .zoom-controls, .pitch-controls, .control-group { padding: 4px 8px;}
     .control-button, #octave-display, .zoom-controls label, .pitch-controls label, #pitch-shift-display, .control-group label { font-size: 0.8em; }
+    .collapsible-section-summary { font-size: 1.1em; } /* Adjust summary font size on mobile */
 
     .sequencer-step { width: 22px; height: 22px; }
     .sequencer-main-controls { flex-direction: column; gap: 12px; }
